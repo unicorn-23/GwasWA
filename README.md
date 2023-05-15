@@ -39,8 +39,7 @@
     - [7, processing bam files, -- step dealbam](#7-processing-bam-files----step-dealbam)
     - [8. Mutation detection, -- step detect](#8-mutation-detection----step-detect)
     - [9、jointgenotype，`--step jointgenotype`](#9jointgenotype--step-jointgenotype)
-    - [10、vcf质控，`--step vcfqc`
-10. vcf quality control, -- step vcfqc](#10vcf质控--step-vcfqc10-vcf-quality-control----step-vcfqc)
+    - [10. vcf quality control, -- step vcfqc](#10-vcf-quality-control----step-vcfqc)
 - [Module2 GWAS pre-processing](#module2-gwas-pre-processing)
     - [Genotype filling, -- step impute](#genotype-filling----step-impute)
     - [vcf to bfile,-- step transvcf](#vcf-to-bfile---step-transvcf-1)
@@ -52,7 +51,6 @@
     - [Screening for significant variation,--step selectsnp](#screening-for-significant-variation--step-selectsnp)
 - [Module4 Assessment of variant functional effect](#module4-assessment-of-variant-functional-effect)
   - [Variation impact assessment,--step assess](#variation-impact-assessment--step-assess)
-
 
 # Installation
 
@@ -229,8 +227,6 @@ Filter results are stored in the gwas/selectsnp directory
 
 vep and enformer results are stored in the assessment directory
 
-
-
 # General parameters
 
 -   \-o, -- output \<path>. Set the directory of the output file, the current directory by default.
@@ -355,7 +351,7 @@ After the bam file in the input directory is detected, sample\_g.vcf and its ind
 
 In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
 
-### 10、vcf质控，`--step vcfqc`&#xA;10\. vcf quality control, -- step vcfqc
+### 10. vcf quality control, -- step vcfqc
 
 -   \-- vcfdir \<filename>. Provide the vcf file that holds the variant genotype information.
 -   Do hard filtering for SNPs
@@ -432,11 +428,11 @@ After group structure analysis and pca analysis, the bfile in the input director
 
 Principal component analysis figure pca.png
 
-![](image/pca_dcmCJPFlkI.png)
+![](image/pca_M2xq0hgdmZ.png)
 
 Group Structure Chart admixture.png
 
-![](image/gt_3_admixture_8fj89xHUnf.png)
+![](image/gt_3_admixture_cFjYSZa-tw.png)
 
 ### kinship analysis, -- step kinship
 
@@ -448,7 +444,7 @@ After kinship analysis, the bfile in the input directory generates kinship.txt, 
 
 kinship.png
 
-![](image/kinship_FuRYeZUu2a.png)
+![](image/kinship_1Qp28-KldQ.png)
 
 # Module3 Association analysis
 
@@ -462,17 +458,17 @@ kinship.png
     -   \-- lmm. mixed linear model.
         -   \-- pcafile \<filename>. Optionally, provide the pca result file as a covariate.
         -   \-- kinshipfile \<filename>. Optionally, provide the kinship result file as a covariate. If it is not provided, it will be automatically generated.
-        `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec`
+            `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec`
 
 After Association analysis, the bfile in the input directory generates a result.assoc.txt file that stores the information of each variant site, and a variant.vcf file that filters out significantly associated SNPs, draws man.png of Manhattan map and qq.png of qq map, and stores them in the part2/kinship directory.
 
 Manhattan Figure man.png
 
-![](image/man_sKI7OHZdWw.png)
+![](image/man_cFJ0axqfXa.png)
 
 QQ plot qq.png
 
-![](image/qq_LSgs4hwip7.png)
+![](image/qq_JhswH0aLpZ.png)
 
 ### Screening for significant variation,--step selectsnp
 
@@ -496,18 +492,16 @@ QQ plot qq.png
     2.  Tolerated\_Low\_Confidence (low confidence tolerable): The variation has no obvious effect on the function of the protein, but due to the limitation of the aligned sequence and protein structure, the confidence of this prediction result is low and needs further verification.
     3.  Deleterious (deleterious): Variations that have a pronounced effect on the function of a protein may result in changes in the structure or function of the protein that can cause disease or other biological effects.
     4.  Deleterious\_Low\_Confidence (low confidence harmful): The variation has a significant impact on the function of the protein, but due to the limitations of the aligned sequence and protein structure, the confidence of this prediction is low and needs further verification.
-    It should be noted that the prediction results of SIFT are based on the alignment sequence and protein structure information, and the prediction results may be affected by the quality of the alignment, the limitation of structural information and other factors, so the prediction results need to be further verified.
+        It should be noted that the prediction results of SIFT are based on the alignment sequence and protein structure information, and the prediction results may be affected by the quality of the alignment, the limitation of structural information and other factors, so the prediction results need to be further verified.
 -   PolyPhen(Polymorphism Phenotyping) is a computational method used to predict the potential impact of amino acid substitutions on protein structure and function. It provides a score for each replacement, reflecting the probability that the replacement may cause damage to protein function.
 
     In the PolyPhen scoring system, substitutions are divided into the following three categories:
     1.  Possibly Harmful (probably damaging): The substitution is predicted to have a serious effect on protein function, possibly leading to disease or other biological effects.
     2.  Possibly Harmful (possibly damaging): The substitution prediction may have some effect on protein function, but it is not significant or severe enough to have a minor effect on protein function.
     3.  Benign: The replacement is predicted to have no significant effect on protein function, is usually found in regions of high variation, and is unlikely to cause disease.
-    It should be noted that the PolyPhen score is only based on protein structure and function prediction, and its prediction results need to be further verified.
+        It should be noted that the PolyPhen score is only based on protein structure and function prediction, and its prediction results need to be further verified.
 
 `gwaswa --step vep --snpfile MypipeOutput/gwas/association/lm/variant_lm.vcf`
-
-
 
 [^1]: Jiang K, Yang Z, Cui W, et al. An exome-wide association study identifies new susceptibility loci for age of smoking initiation in African-and European-American populations\[J]. Nicotine and Tobacco Research, 2019, 21(6): 707-713.
 
