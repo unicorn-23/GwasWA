@@ -305,11 +305,11 @@ After group structure analysis and pca analysis, the bfile in the input director
 
 Principal component analysis figure pca.png
 
-![](image/pca_M2xq0hgdmZ.png)
+![](image/pca.png)
 
 Group Structure Chart admixture.png
 
-![](image/gt_3_admixture_cFjYSZa-tw.png)
+![](image/admixture.png)
 
 ### kinship analysis, -- step kinship
 
@@ -321,7 +321,7 @@ After kinship analysis, the bfile in the input directory generates kinship.txt, 
 
 kinship.png
 
-![](image/kinship_1Qp28-KldQ.png)
+![](image/kinship.png)
 
 # Module3 Association analysis
 
@@ -341,11 +341,11 @@ After Association analysis, the bfile in the input directory generates a result.
 
 Manhattan Figure man.png
 
-![](image/man_cFJ0axqfXa.png)
+![](image/man.png)
 
 QQ plot qq.png
 
-![](image/qq_JhswH0aLpZ.png)
+![](image/qq.png)
 
 ### Screening for significant variation,--step selectsnp
 
