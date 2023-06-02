@@ -7,27 +7,6 @@
 - [Installation](#installation)
   - [Install according to file](#install-according-to-file)
   - [or download the library from conda](#or-download-the-library-from-conda)
-- [Quick Start](#quick-start)
-  - [Module 1 WGS data Processing, using E. coli WGS data SRR1770413 as an example](#module-1-wgs-data-processing-using-e-coli-wgs-data-srr1770413-as-an-example)
-    - [Download sequencing data, -- step `downloadsra`](#download-sequencing-data----step-downloadsra)
-    - [sra to fastq, -- step sratofastq](#sra-to-fastq----step-sratofastq)
-    - [fastq quality control, -- step readsqc](#fastq-quality-control----step-readsqc)
-    - [Quality evaluation, --step qualityevaluation](#quality-evaluation---step-qualityevaluation)
-    - [Download the reference genome and build its index, --step downloadref](#download-the-reference-genome-and-build-its-index---step-downloadref)
-    - [Compare reference genome, -- step align](#compare-reference-genome----step-align)
-    - [Process bam files, -- step dealbam](#process-bam-files----step-dealbam)
-    - [Variant detection, -- step detect](#variant-detection----step-detect)
-    - [jointgenotype，`--step jointgenotype`](#jointgenotype--step-jointgenotype)
-    - [vcf quality control, -- step vcfqc](#vcf-quality-control----step-vcfqc)
-  - [Modules 2 and 3 deal with GWAS data and association analysis, taking the experiment of Jiang K et al. as an example\[^1\], with parameters configured according to the study of Marees A T et al\[^2\].](#modules-2-and-3-deal-with-gwas-data-and-association-analysis-taking-the-experiment-of-jiang-k-et-al-as-an-example1-with-parameters-configured-according-to-the-study-of-marees-a-t-et-al2)
-    - [vcf to bfile,-- step transvcf](#vcf-to-bfile---step-transvcf)
-    - [gwas quality control, -- step gwasqc](#gwas-quality-control----step-gwasqc)
-    - [pca analysis, -- step pca](#pca-analysis----step-pca)
-    - [kinship analysis, -- step kinship](#kinship-analysis----step-kinship)
-    - [Association analysis, -- step association](#association-analysis----step-association)
-    - [Screening for significant variation,-step selectsnp](#screening-for-significant-variation-step-selectsnp)
-  - [Module 4 Assessment of variant effect, using human non-coding variant rs11644125 as an example](#module-4-assessment-of-variant-effect-using-human-non-coding-variant-rs11644125-as-an-example)
-    - [Variant effect assessment, -- step assess](#variant-effect-assessment----step-assess)
 - [General parameters](#general-parameters)
 - [Module1 WGS data processing](#module1-wgs-data-processing)
     - [1. Download sequencing data, -- step downloadsra](#1-download-sequencing-data----step-downloadsra)
@@ -38,19 +17,40 @@
     - [6. comparison of reference genome, -- step align](#6-comparison-of-reference-genome----step-align)
     - [7, processing bam files, -- step dealbam](#7-processing-bam-files----step-dealbam)
     - [8. Mutation detection, -- step detect](#8-mutation-detection----step-detect)
-    - [9、jointgenotype，`--step jointgenotype`](#9jointgenotype--step-jointgenotype)
+    - [9、jointgenotype，--step jointgenotype](#9jointgenotype--step-jointgenotype)
     - [10. vcf quality control, -- step vcfqc](#10-vcf-quality-control----step-vcfqc)
 - [Module2 GWAS pre-processing](#module2-gwas-pre-processing)
     - [Genotype filling, -- step impute](#genotype-filling----step-impute)
+    - [vcf to bfile,-- step transvcf](#vcf-to-bfile---step-transvcf)
+    - [gwas quality control, -- step gwasqc](#gwas-quality-control----step-gwasqc)
+    - [pca analysis, -- step pca](#pca-analysis----step-pca)
+    - [kinship analysis, -- step kinship](#kinship-analysis----step-kinship)
+- [Module3 Association analysis](#module3-association-analysis)
+    - [Association analysis, -- step association](#association-analysis----step-association)
+    - [Screening for significant variation,--step selectsnp](#screening-for-significant-variation--step-selectsnp)
+- [Module4 Assessment of variant functional effect](#module4-assessment-of-variant-functional-effect)
+  - [Variation impact assessment,--step assess](#variation-impact-assessment--step-assess)
+- [Quick Start](#quick-start)
+  - [Module 1 WGS data Processing, using E. coli WGS data SRR1770413 as an example](#module-1-wgs-data-processing-using-e-coli-wgs-data-srr1770413-as-an-example)
+    - [Download sequencing data, -- step downloadsra](#download-sequencing-data----step-downloadsra)
+    - [sra to fastq, -- step sratofastq](#sra-to-fastq----step-sratofastq)
+    - [fastq quality control, -- step readsqc](#fastq-quality-control----step-readsqc)
+    - [Quality evaluation, --step qualityevaluation](#quality-evaluation---step-qualityevaluation)
+    - [Download the reference genome and build its index, --step downloadref](#download-the-reference-genome-and-build-its-index---step-downloadref)
+    - [Compare reference genome, -- step align](#compare-reference-genome----step-align)
+    - [Process bam files, -- step dealbam](#process-bam-files----step-dealbam)
+    - [Variant detection, -- step detect](#variant-detection----step-detect)
+    - [jointgenotype，--step jointgenotype](#jointgenotype--step-jointgenotype)
+    - [vcf quality control, -- step vcfqc](#vcf-quality-control----step-vcfqc)
+  - [Modules 2 and 3](#modules-2-and-3)
     - [vcf to bfile,-- step transvcf](#vcf-to-bfile---step-transvcf-1)
     - [gwas quality control, -- step gwasqc](#gwas-quality-control----step-gwasqc-1)
     - [pca analysis, -- step pca](#pca-analysis----step-pca-1)
     - [kinship analysis, -- step kinship](#kinship-analysis----step-kinship-1)
-- [Module3 Association analysis](#module3-association-analysis)
     - [Association analysis, -- step association](#association-analysis----step-association-1)
-    - [Screening for significant variation,--step selectsnp](#screening-for-significant-variation--step-selectsnp)
-- [Module4 Assessment of variant functional effect](#module4-assessment-of-variant-functional-effect)
-  - [Variation impact assessment,--step assess](#variation-impact-assessment--step-assess)
+    - [Screening for significant variation,-step selectsnp](#screening-for-significant-variation-step-selectsnp)
+  - [Module 4 Assessment of variant effect, using human non-coding variant rs11644125 as an example](#module-4-assessment-of-variant-effect-using-human-non-coding-variant-rs11644125-as-an-example)
+    - [Variant effect assessment, -- step assess](#variant-effect-assessment----step-assess)
 
 # Installation
 
@@ -103,129 +103,6 @@ Add variable settings at the end of the file \~/.bashrc. Next, execute the follo
 
 `source ~/.bashrc`
 
-# Quick Start
-
-## Module 1 WGS data Processing, using E. coli WGS data SRR1770413 as an example
-
-### Download sequencing data, -- step `downloadsra`
-
-`gwaswa --step downloadsra --sra SRR1770413 --core 5 --output coli`
-
-The file SRR1770413.sra will be stored in the coli/gwaswaOutput/wgs/sra/path
-
-### sra to fastq, -- step sratofastq
-
-`gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --core 5 --nThrds 5 --output coli`
-
-The converted file will be stored in the compressed format of coli/gwaswaOutput/wgs/raw
-
-### fastq quality control, -- step readsqc
-
-`gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --core 5 --nThrds 5 --output coli`
-
-The fastq file after quality control will be stored in the coli/gwaswaOutput/wgs/clean directory in the compressed format of .fq.gz.
-
-### Quality evaluation, --step qualityevaluation
-
-`gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --nThrds 5 --output coli`
-
-Contains the results of quality evaluations using fastqc and multiqc, stored in the gwaswaOutput/wgs/qualityEvaluation directory.
-
-### Download the reference genome and build its index, --step downloadref
-
-`gwaswa --step downloadref --accession GCF_000005845.2 --output coli`
-
-The reference genome index file is stored in the same directory as the reference genome.
-
-### Compare reference genome, -- step align
-
-`gwaswa --step align --cleanfastqdir coli/gwaswaOutput/wgs/clean --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
-
-The .sam file is converted to a .bam file and stored in the coli/gwaswaOutput/wgs/align directory.
-
-### Process bam files, -- step dealbam
-
-`gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
-
-The resulting. bam file is stored in the coli/gwaswaOutput/wgs/processed directory.
-
-### Variant detection, -- step detect
-
-`gwaswa --step detect --processedbamdir coli/gwaswaOutput/wgs/processed --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
-
-After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the coli/gwaswaOutput/wgs/gvcf directory.
-
-### jointgenotype，`--step jointgenotype`
-
-`gwaswa --step jointgenotype --gvcfdir coli/gwaswaOutput/wgs/gvcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
-
-In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
-
-### vcf quality control, -- step vcfqc
-
-`gwaswa --step vcfqc --vcfdir coli/gwaswaOutput/wgs/vcf/genotype.vcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
-
-The imported genotype.vcf file undergoes quality control to generate genotype\_filter.vcf and its index file, which is stored in the gwaswaOutput/wgs/vcf directory.
-
-## Modules 2 and 3 deal with GWAS data and association analysis, taking the experiment of Jiang K et al. as an example[^1], with parameters configured according to the study of Marees A T et al[^2].
-
-### vcf to bfile,-- step transvcf
-
-`gwaswa --step transvcf --genotypefile gwaswa/example/genotype.vcf.gz --phenotypefile gwaswa/example/pheno.txt --output example`
-
-The input vcf file is converted to generate a bfile file and stored in the part2/transvcf directory. Contains. bim,. fam,. bed files. The phenotype file is added to the fam file.
-
-### gwas quality control, -- step gwasqc
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --snpmiss 0.2 --indmiss 0.2 --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --snpmiss 0.02 --indmiss 0.02 --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --checksex --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --imputesex --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --maf 0.05 --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --hwe 1e-6 --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --hweall 1e-10 --output example`
-
-`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --indepPairwise 50 5 0.2 --output example`
-
-the bfile file of the input directory is subjected to quality control, and the bfile file after quality control and the intermediate file of quality control are generated and stored in the gwas/qc directory.
-
-### pca analysis, -- step pca
-
-`gwaswa --step pca --groupnum 3 --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
-
-The results of population structure and principal component analysis are stored in the gwas/pca directory.
-
-### kinship analysis, -- step kinship
-
-`gwaswa --step kinship --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
-
-The results of the kinship analysis are stored in the gwas/pca directory.
-
-### Association analysis, -- step association
-
-`gwaswa --step association --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --lm --output example`
-
-The association analysis results are stored in the gwas/association directory.
-
-### Screening for significant variation,-step selectsnp
-
-`gwaswa --step selectsnp --assocfile example/gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5 --output example`
-
-Filter results are stored in the gwas/selectsnp directory
-
-## Module 4 Assessment of variant effect, using human non-coding variant rs11644125 as an example
-
-### Variant effect assessment, -- step assess
-
-`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf`
-
-vep and enformer results are stored in the assessment directory
 
 # General parameters
 
@@ -341,7 +218,7 @@ The bam files in the input directory are sorted, pcr duplicates are removed, ind
 
 After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the gwaswaOutput/wgs/gvcf directory.
 
-### 9、jointgenotype，`--step jointgenotype`
+### 9、jointgenotype，--step jointgenotype
 
 -   \-- gvcfdir \<path>. Provide a directory where each gvcf file is stored.
 -   \-- refgenome \<filename>. Use this parameter if you have a local reference genome file.
@@ -506,3 +383,128 @@ QQ plot qq.png
 [^1]: Jiang K, Yang Z, Cui W, et al. An exome-wide association study identifies new susceptibility loci for age of smoking initiation in African-and European-American populations\[J]. Nicotine and Tobacco Research, 2019, 21(6): 707-713.
 
 [^2]: Marees A T, de Kluiver H, Stringer S, et al. A tutorial on conducting genome‐wide association studies: Quality control and statistical analysis\[J]. International journal of methods in psychiatric research, 2018, 27(2): e1608.
+
+# Quick Start
+
+## Module 1 WGS data Processing, using E. coli WGS data SRR1770413 as an example
+
+### Download sequencing data, -- step downloadsra
+
+`gwaswa --step downloadsra --sra SRR1770413 --core 5 --output coli`
+
+The file SRR1770413.sra will be stored in the coli/gwaswaOutput/wgs/sra/path
+
+### sra to fastq, -- step sratofastq
+
+`gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --core 5 --nThrds 5 --output coli`
+
+The converted file will be stored in the compressed format of coli/gwaswaOutput/wgs/raw
+
+### fastq quality control, -- step readsqc
+
+`gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --core 5 --nThrds 5 --output coli`
+
+The fastq file after quality control will be stored in the coli/gwaswaOutput/wgs/clean directory in the compressed format of .fq.gz.
+
+### Quality evaluation, --step qualityevaluation
+
+`gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --nThrds 5 --output coli`
+
+Contains the results of quality evaluations using fastqc and multiqc, stored in the gwaswaOutput/wgs/qualityEvaluation directory.
+
+### Download the reference genome and build its index, --step downloadref
+
+`gwaswa --step downloadref --accession GCF_000005845.2 --output coli`
+
+The reference genome index file is stored in the same directory as the reference genome.
+
+### Compare reference genome, -- step align
+
+`gwaswa --step align --cleanfastqdir coli/gwaswaOutput/wgs/clean --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
+
+The .sam file is converted to a .bam file and stored in the coli/gwaswaOutput/wgs/align directory.
+
+### Process bam files, -- step dealbam
+
+`gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
+
+The resulting. bam file is stored in the coli/gwaswaOutput/wgs/processed directory.
+
+### Variant detection, -- step detect
+
+`gwaswa --step detect --processedbamdir coli/gwaswaOutput/wgs/processed --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
+
+After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the coli/gwaswaOutput/wgs/gvcf directory.
+
+### jointgenotype，--step jointgenotype
+
+`gwaswa --step jointgenotype --gvcfdir coli/gwaswaOutput/wgs/gvcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
+
+In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
+
+### vcf quality control, -- step vcfqc
+
+`gwaswa --step vcfqc --vcfdir coli/gwaswaOutput/wgs/vcf/genotype.vcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
+
+The imported genotype.vcf file undergoes quality control to generate genotype\_filter.vcf and its index file, which is stored in the gwaswaOutput/wgs/vcf directory.
+
+## Modules 2 and 3 
+Modules 2 and 3 deal with GWAS data and association analysis, taking the experiment of Jiang K et al. as an example[^1], with parameters configured according to the study of Marees A T et al[^2].
+
+### vcf to bfile,-- step transvcf
+
+`gwaswa --step transvcf --genotypefile gwaswa/example/genotype.vcf.gz --phenotypefile gwaswa/example/pheno.txt --output example`
+
+The input vcf file is converted to generate a bfile file and stored in the part2/transvcf directory. Contains. bim,. fam,. bed files. The phenotype file is added to the fam file.
+
+### gwas quality control, -- step gwasqc
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --snpmiss 0.2 --indmiss 0.2 --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --snpmiss 0.02 --indmiss 0.02 --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --checksex --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --imputesex --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --maf 0.05 --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --hwe 1e-6 --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --hweall 1e-10 --output example`
+
+`gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --indepPairwise 50 5 0.2 --output example`
+
+the bfile file of the input directory is subjected to quality control, and the bfile file after quality control and the intermediate file of quality control are generated and stored in the gwas/qc directory.
+
+### pca analysis, -- step pca
+
+`gwaswa --step pca --groupnum 3 --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
+
+The results of population structure and principal component analysis are stored in the gwas/pca directory.
+
+### kinship analysis, -- step kinship
+
+`gwaswa --step kinship --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
+
+The results of the kinship analysis are stored in the gwas/pca directory.
+
+### Association analysis, -- step association
+
+`gwaswa --step association --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --lm --output example`
+
+The association analysis results are stored in the gwas/association directory.
+
+### Screening for significant variation,-step selectsnp
+
+`gwaswa --step selectsnp --assocfile example/gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5 --output example`
+
+Filter results are stored in the gwas/selectsnp directory
+
+## Module 4 Assessment of variant effect, using human non-coding variant rs11644125 as an example
+
+### Variant effect assessment, -- step assess
+
+`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf`
+
+vep and enformer results are stored in the assessment directory
