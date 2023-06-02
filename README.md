@@ -1,5 +1,5 @@
 # GwasWA Manual
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7996735.svg)](https://doi.org/10.5281/zenodo.7996735)
 ## Contents
 
 - [GwasWA Manual](#gwaswa-manual)
@@ -259,7 +259,7 @@ The imported genotype.vcf file undergoes quality control to generate genotype\_f
 -   \-- nMem \<str>. Maximum memory footprint
 -   \-- nThrds \<int>. Number of multiple threads used for genotype fill
 
-`gwaswa --step impute --genotypefile gwaswaOutput/wgs/vcf/genotype_filter.vcf.gz --nThrds 10 --nMem 300g`
+`gwaswa --step impute --genotypefile gwaswaOutput/wgs/vcf/genotype_filter.vcf.gz`
 
 The input vcf file is filled with genotypes, and the genotype.vcf.gz file is generated in the gwaswaOutput/gwas/transvcf directory.
 
@@ -390,25 +390,25 @@ QQ plot qq.png
 
 ### Download sequencing data, -- step downloadsra
 
-`gwaswa --step downloadsra --sra SRR1770413 --core 5 --output coli`
+`gwaswa --step downloadsra --sra SRR1770413 --output coli`
 
 The file SRR1770413.sra will be stored in the coli/gwaswaOutput/wgs/sra/path
 
 ### sra to fastq, -- step sratofastq
 
-`gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --core 5 --nThrds 5 --output coli`
+`gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --output coli`
 
 The converted file will be stored in the compressed format of coli/gwaswaOutput/wgs/raw
 
 ### fastq quality control, -- step readsqc
 
-`gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --core 5 --nThrds 5 --output coli`
+`gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --output coli`
 
 The fastq file after quality control will be stored in the coli/gwaswaOutput/wgs/clean directory in the compressed format of .fq.gz.
 
 ### Quality evaluation, --step qualityevaluation
 
-`gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --nThrds 5 --output coli`
+`gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --output coli`
 
 Contains the results of quality evaluations using fastqc and multiqc, stored in the gwaswaOutput/wgs/qualityEvaluation directory.
 
@@ -420,25 +420,25 @@ The reference genome index file is stored in the same directory as the reference
 
 ### Compare reference genome, -- step align
 
-`gwaswa --step align --cleanfastqdir coli/gwaswaOutput/wgs/clean --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
+`gwaswa --step align --cleanfastqdir coli/gwaswaOutput/wgs/clean --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
 The .sam file is converted to a .bam file and stored in the coli/gwaswaOutput/wgs/align directory.
 
 ### Process bam files, -- step dealbam
 
-`gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
+`gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --output coli`
 
 The resulting. bam file is stored in the coli/gwaswaOutput/wgs/processed directory.
 
 ### Variant detection, -- step detect
 
-`gwaswa --step detect --processedbamdir coli/gwaswaOutput/wgs/processed --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --nThrds 5 --output coli`
+`gwaswa --step detect --processedbamdir coli/gwaswaOutput/wgs/processed --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
 After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the coli/gwaswaOutput/wgs/gvcf directory.
 
 ### jointgenotype，--step jointgenotype
 
-`gwaswa --step jointgenotype --gvcfdir coli/gwaswaOutput/wgs/gvcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --core 5 --output coli`
+`gwaswa --step jointgenotype --gvcfdir coli/gwaswaOutput/wgs/gvcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
 In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
 
