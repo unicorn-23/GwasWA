@@ -46,7 +46,7 @@ def getArgs(argv=None):
         "--step", metavar="<str>", type=str,
         choices=[
 
-            # "wgsall",
+            "wgsall",
             "downloadsra",
             "sratofastq",
             "readsqc",

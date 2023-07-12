@@ -2326,7 +2326,6 @@ def draw_kinship(P):
 
 
 # #################### 2.5、  关联分析 ####################
-
 def do_associate_lm(P, clean_file_path):
     file_list = os.listdir(clean_file_path)
     for file_ in file_list:
@@ -2515,7 +2514,7 @@ def enformer_predict(P, file_path):
             tracks = [
                 reference_prediction[:, i].tolist(),
                 alternate_prediction[:, i].tolist(),
-                (reference_prediction[:, i]-alternate_prediction[:, i]).tolist()
+                (alternate_prediction[:, i]-reference_prediction[:, i]).tolist()
             ]
             snp_dir=os.path.join(enformer_output_path,f"{variant.chrom}_{variant.pos}")
             if not os.path.exists(snp_dir):
@@ -2575,7 +2574,7 @@ def predict(model, fasta_extractor, variant,targets_txt, variant_path):
         tracks = [
             reference_prediction[:, i].tolist(),
             alternate_prediction[:, i].tolist(),
-            (reference_prediction[:, i]-alternate_prediction[:, i]).tolist()
+            (alternate_prediction[:, i]-reference_prediction[:, i]).tolist()
         ]
         snp_dir=f"{script_dir}/enformer/{variant.chrom}_{variant.pos}"
         if not os.path.exists(snp_dir):
@@ -3517,7 +3516,7 @@ def assess_summary(P,snpfile):
             let myEnformerChart = echarts.init(document.getElementById('enformerchart'));
             let ref=tracks[0]
             let alt=tracks[1]
-            let ref_alt=tracks[2]
+            let alt_ref=tracks[2]
             let enformerchartOption = {
                 tooltip: {
                     trigger: 'axis',
@@ -3532,7 +3531,7 @@ def assess_summary(P,snpfile):
                 },{
                     left: 'center',
                     top: '49%',
-                    text: 'Effect of variant on regulatory activity (ref - alt)'
+                    text: 'Effect of variant on regulatory activity (alt - ref)'
                 }
                 ],
                 legend: [
@@ -3545,7 +3544,7 @@ def assess_summary(P,snpfile):
                         top: '53%',
                         data: [
                             {
-                                name:'ref - alt'
+                                name:'alt - ref'
                             }
                         ],
                         show: true // 显示下图的legend
@@ -3655,9 +3654,9 @@ def assess_summary(P,snpfile):
                         data: alt,
                     },
                     {
-                        name:'ref - alt',
+                        name:'alt - ref',
                         type: 'line',
-                        data: ref_alt,
+                        data: alt_ref,
                         xAxisIndex: 1, // 指定该系列所属的x轴为第一个x轴
                         yAxisIndex: 1, // 指定该系列所属的y轴为第一个y轴
                     }
