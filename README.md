@@ -2,7 +2,60 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7996735.svg)](https://doi.org/10.5281/zenodo.7996735)
 
 ## Contents
-[TOC]
+
+- [GwasWA Manual](#gwaswa-manual)
+  - [Contents](#contents)
+- [Installation](#installation)
+  - [Install according to file](#install-according-to-file)
+  - [or download the library from conda](#or-download-the-library-from-conda)
+- [General parameters](#general-parameters)
+- [Module1 WGS data processing](#module1-wgs-data-processing)
+  - [Download sequencing data, -- step downloadsra](#download-sequencing-data----step-downloadsra)
+  - [Sra to fastq, --step sratofastq](#sra-to-fastq---step-sratofastq)
+  - [Fastq quality control, --step readsqc](#fastq-quality-control---step-readsqc)
+  - [Quality assessment, --step qualityevaluation](#quality-assessment---step-qualityevaluation)
+  - [Establish a reference genome index, --step downloadref](#establish-a-reference-genome-index---step-downloadref)
+  - [Comparison of reference genome, --step align](#comparison-of-reference-genome---step-align)
+  - [Processing bam files, --step dealbam](#processing-bam-files---step-dealbam)
+  - [Mutation detection, --step detect](#mutation-detection---step-detect)
+  - [Jointgenotype，--step jointgenotype](#jointgenotype--step-jointgenotype)
+  - [Vcf quality control, --step vcfqc](#vcf-quality-control---step-vcfqc)
+- [Module2 GWAS pre-processing](#module2-gwas-pre-processing)
+  - [Genotype filling, --step impute](#genotype-filling---step-impute)
+  - [Vcf to bfile, --step transvcf](#vcf-to-bfile---step-transvcf)
+  - [GWAS quality control, --step gwasqc](#gwas-quality-control---step-gwasqc)
+  - [PCA analysis, --step pca](#pca-analysis---step-pca)
+  - [Kinship analysis, --step kinship](#kinship-analysis---step-kinship)
+- [Module3 Association analysis](#module3-association-analysis)
+  - [Association analysis, --step association](#association-analysis---step-association)
+    - [Screening for significant variation, --step selectsnp](#screening-for-significant-variation---step-selectsnp)
+- [Module4 Assessment of variant functional effect](#module4-assessment-of-variant-functional-effect)
+  - [Variation impact assessment, --step assess](#variation-impact-assessment---step-assess)
+- [Quick Start](#quick-start)
+  - [Module 1 WGS data Processing](#module-1-wgs-data-processing)
+    - [Download sequencing data, --step downloadsra](#download-sequencing-data---step-downloadsra)
+    - [Sra to fastq, --step sratofastq](#sra-to-fastq---step-sratofastq-1)
+    - [Fastq quality control, --step readsqc](#fastq-quality-control---step-readsqc-1)
+    - [Quality evaluation, --step qualityevaluation](#quality-evaluation---step-qualityevaluation)
+    - [Download the reference genome and build its index, --step downloadref](#download-the-reference-genome-and-build-its-index---step-downloadref)
+    - [Compare reference genome, --step align](#compare-reference-genome---step-align)
+    - [Process bam files, --step dealbam](#process-bam-files---step-dealbam)
+    - [Variant detection, --step detect](#variant-detection---step-detect)
+    - [Jointgenotype，--step jointgenotype](#jointgenotype--step-jointgenotype-1)
+    - [Vcf quality control, --step vcfqc](#vcf-quality-control---step-vcfqc-1)
+  - [Modules 2 and 3](#modules-2-and-3)
+    - [Vcf to bfile, --step transvcf](#vcf-to-bfile---step-transvcf-1)
+    - [GWAS quality control, --step gwasqc](#gwas-quality-control---step-gwasqc-1)
+    - [PCA analysis, --step pca](#pca-analysis---step-pca-1)
+    - [Kinship analysis, --step kinship](#kinship-analysis---step-kinship-1)
+    - [Association analysis, --step association](#association-analysis---step-association-1)
+    - [Screening for significant variation, --step selectsnp](#screening-for-significant-variation---step-selectsnp-1)
+  - [Module 4 Assessment of variant effect](#module-4-assessment-of-variant-effect)
+    - [Variant effect assessment, --step assess](#variant-effect-assessment---step-assess)
+
+
+
+
 # Installation
 
 ## Install according to file
