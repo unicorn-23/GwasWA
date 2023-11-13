@@ -1,64 +1,64 @@
 # GwasWA Manual
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7996735.svg)](https://doi.org/10.5281/zenodo.7996735)
+
+GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assessment
+
+![Figure 1](README.assets/Figure 1.png)
 
 ## Contents
 
+
 - [GwasWA Manual](#gwaswa-manual)
   - [Contents](#contents)
-- [Installation](#installation)
-  - [Install according to file](#install-according-to-file)
-  - [or download the library from conda](#or-download-the-library-from-conda)
-- [General parameters](#general-parameters)
-- [Module1 WGS data processing](#module1-wgs-data-processing)
-  - [Download sequencing data, -- step downloadsra](#download-sequencing-data----step-downloadsra)
-  - [Sra to fastq, --step sratofastq](#sra-to-fastq---step-sratofastq)
-  - [Fastq quality control, --step readsqc](#fastq-quality-control---step-readsqc)
-  - [Quality assessment, --step qualityevaluation](#quality-assessment---step-qualityevaluation)
-  - [Establish a reference genome index, --step downloadref](#establish-a-reference-genome-index---step-downloadref)
-  - [Comparison of reference genome, --step align](#comparison-of-reference-genome---step-align)
-  - [Processing bam files, --step dealbam](#processing-bam-files---step-dealbam)
-  - [Mutation detection, --step detect](#mutation-detection---step-detect)
-  - [Jointgenotype，--step jointgenotype](#jointgenotype--step-jointgenotype)
-  - [Vcf quality control, --step vcfqc](#vcf-quality-control---step-vcfqc)
-- [Module2 GWAS pre-processing](#module2-gwas-pre-processing)
-  - [Genotype filling, --step impute](#genotype-filling---step-impute)
-  - [Vcf to bfile, --step transvcf](#vcf-to-bfile---step-transvcf)
-  - [GWAS quality control, --step gwasqc](#gwas-quality-control---step-gwasqc)
-  - [PCA analysis, --step pca](#pca-analysis---step-pca)
-  - [Kinship analysis, --step kinship](#kinship-analysis---step-kinship)
-- [Module3 Association analysis](#module3-association-analysis)
-  - [Association analysis, --step association](#association-analysis---step-association)
-    - [Screening for significant variation, --step selectsnp](#screening-for-significant-variation---step-selectsnp)
-- [Module4 Assessment of variant functional effect](#module4-assessment-of-variant-functional-effect)
-  - [Variation impact assessment, --step assess](#variation-impact-assessment---step-assess)
+- [GwasWA Installation Guide](#gwaswa-installation-guide)
+- [General Parameters](#general-parameters)
+- [WGS Data Processing](#wgs-data-processing)
+  - [Download sequence data, `-- step downloadsra`](#download-sequence-data----step-downloadsra)
+  - [Convert SRA to FASTQ, `--step sratofastq`](#convert-sra-to-fastq---step-sratofastq)
+  - [FASTQ quality control, `--step readsqc`](#fastq-quality-control---step-readsqc)
+  - [Quality evaluation, `--step qualityevaluation`](#quality-evaluation---step-qualityevaluation)
+  - [Download \& index reference genome, `--step downloadref`](#download--index-reference-genome---step-downloadref)
+  - [Alignment reference genome, `--step align`](#alignment-reference-genome---step-align)
+  - [BAM files processing, `--step dealbam`](#bam-files-processing---step-dealbam)
+  - [Variant detection, `--step detect`](#variant-detection---step-detect)
+  - [Jointgenotype, `--step jointgenotype`](#jointgenotype---step-jointgenotype)
+  - [VCF quality control, `--step vcfqc`](#vcf-quality-control---step-vcfqc)
+- [GWAS Data Pre-processing](#gwas-data-pre-processing)
+  - [Genotype imputation, `--step impute`](#genotype-imputation---step-impute)
+  - [Convert VCF to bfiles, `--step transvcf`](#convert-vcf-to-bfiles---step-transvcf)
+  - [GWAS quality control, `--step gwasqc`](#gwas-quality-control---step-gwasqc)
+  - [Population structure analysis, `--step pca`](#population-structure-analysis---step-pca)
+  - [Kinship analysis, `--step kinship`](#kinship-analysis---step-kinship)
+- [Association Analysis](#association-analysis)
+  - [Association analysis, `--step association`](#association-analysis---step-association)
+  - [Select significant variant, `--step selectsnp`](#select-significant-variant---step-selectsnp)
+- [Assessment of Variant Functional Effect](#assessment-of-variant-functional-effect)
+  - [Variant impact assessment, `--step assess`](#variant-impact-assessment---step-assess)
 - [Quick Start](#quick-start)
-  - [Module 1 WGS data Processing](#module-1-wgs-data-processing)
-    - [Download sequencing data, --step downloadsra](#download-sequencing-data---step-downloadsra)
-    - [Sra to fastq, --step sratofastq](#sra-to-fastq---step-sratofastq-1)
-    - [Fastq quality control, --step readsqc](#fastq-quality-control---step-readsqc-1)
-    - [Quality evaluation, --step qualityevaluation](#quality-evaluation---step-qualityevaluation)
-    - [Download the reference genome and build its index, --step downloadref](#download-the-reference-genome-and-build-its-index---step-downloadref)
-    - [Compare reference genome, --step align](#compare-reference-genome---step-align)
-    - [Process bam files, --step dealbam](#process-bam-files---step-dealbam)
-    - [Variant detection, --step detect](#variant-detection---step-detect)
-    - [Jointgenotype，--step jointgenotype](#jointgenotype--step-jointgenotype-1)
-    - [Vcf quality control, --step vcfqc](#vcf-quality-control---step-vcfqc-1)
-  - [Modules 2 and 3](#modules-2-and-3)
-    - [Vcf to bfile, --step transvcf](#vcf-to-bfile---step-transvcf-1)
-    - [GWAS quality control, --step gwasqc](#gwas-quality-control---step-gwasqc-1)
-    - [PCA analysis, --step pca](#pca-analysis---step-pca-1)
-    - [Kinship analysis, --step kinship](#kinship-analysis---step-kinship-1)
-    - [Association analysis, --step association](#association-analysis---step-association-1)
-    - [Screening for significant variation, --step selectsnp](#screening-for-significant-variation---step-selectsnp-1)
-  - [Module 4 Assessment of variant effect](#module-4-assessment-of-variant-effect)
-    - [Variant effect assessment, --step assess](#variant-effect-assessment---step-assess)
+  - [WGS data Processing](#wgs-data-processing-1)
+    - [Download sequencing data, `--step downloadsra`](#download-sequencing-data---step-downloadsra)
+    - [Convert SRA to FASTQ, `--step sratofastq`](#convert-sra-to-fastq---step-sratofastq-1)
+    - [FASTQ quality control, `--step readsqc`](#fastq-quality-control---step-readsqc-1)
+    - [Quality evaluation, `--step qualityevaluation`](#quality-evaluation---step-qualityevaluation-1)
+    - [Download \& index reference genome, `--step downloadref`](#download--index-reference-genome---step-downloadref-1)
+    - [Alignment of reference genome, `--step align`](#alignment-of-reference-genome---step-align)
+    - [Process BAM files, `--step dealbam`](#process-bam-files---step-dealbam)
+    - [Variant detection, `--step detect`](#variant-detection---step-detect-1)
+    - [Jointgenotype, `--step jointgenotype`](#jointgenotype---step-jointgenotype-1)
+    - [VCF quality control, `--step vcfqc`](#vcf-quality-control---step-vcfqc-1)
+  - [GWAS analysis](#gwas-analysis)
+    - [Convert VCF to bfiles, `--step transvcf`](#convert-vcf-to-bfiles---step-transvcf-1)
+    - [GWAS quality control, `--step gwasqc`](#gwas-quality-control---step-gwasqc-1)
+    - [Population structure analysis, `--step pca`](#population-structure-analysis---step-pca-1)
+    - [Kinship analysis, `--step kinship`](#kinship-analysis---step-kinship-1)
+    - [Association analysis, `--step association`](#association-analysis---step-association-1)
+    - [Select significant variants, `--step selectsnp`](#select-significant-variants---step-selectsnp)
+  - [Assessment of variant effect](#assessment-of-variant-effect)
+    - [Variant effect assessment, `--step assess`](#variant-effect-assessment---step-assess)
 
 
+# GwasWA Installation Guide
 
-
-# Installation
-
-## Install according to file
+To install GwasWA, follow these steps:
 
 `conda env create -f environment.yml`
 
@@ -66,418 +66,389 @@
 
 `pip install -r requirements.txt`
 
-## or download the library from conda
 
-```bash
-conda create -n pipe python=3.9 -y
-conda activate pipe
-conda install tensorflow==2.10.0 -y
-conda install tensorflow-hub==0.12.0 -y
-conda install kipoiseq==0.7.1c -y
-conda install matplotlib==3.7.1 -y
-conda install beautifulsoup4==4.11.2 -y
-conda install seaborn==0.12.2 -y
-conda install joblib==1.2.0 -y
-conda install scikit-learn==1.0.2 -y
-conda install ncbi-datasets-cli==14.15.0 -y
-conda install bwa==0.7.17 -y
-conda install trim-galore==0.6.10 -y
-conda install samtools==1.6 -y
-conda install multiqc==1.14 -y
-conda install gatk4==4.3.0.0 -y
-conda install plink==1.90b6.21 -y
-conda install admixture==1.3.0 -y
-conda install gcta==1.93.2beta -y
-conda install r-base==4.2.2 -y
-conda install r-data.table==1.14.8 -y
-conda install r-ggplot2==3.4.0 -y
-conda install r-reshape2==1.4.4 -y
-conda install r-pheatmap==1.0.12 -y
-conda install r-qqman==0.1.8 -y
-conda install gemma==0.98.3 -y
-conda install ensembl-vep==109.3 -y
-conda install perl-compress-raw-zlib==2.202 -y
-conda install perl-bioperl==1.7.8 -y
-conda install htslib==1.9 -y
-conda install -c bioconda pyfaidx -y
-```
-
-Gwaswa can be accessed globally by adding the gwaswa folder to the environment variable
+To access GwasWA globally, add the GwasWA folder to the environment variable.
 
 `export PATH="/path/to/gwaswa:$PATH"`
 
-Add variable settings at the end of the file \~/.bashrc. Next, execute the following command to make the variable settings take effect:
+Append variable settings to the end of the file `~/.bashrc`. Execute the following command to make the changes take effect:
 
 `source ~/.bashrc`
 
+# General Parameters
 
-# General parameters
+-   `--version`: Retrieve the current version of the tool.
+-   `-o, --output <path>`: Specify the directory for the output file. This option allows you to set the directory path where the output file will be stored. If not specified, the file will be saved in the current directory by default.
+-   `--nosave`: Prevent the tool from saving intermediate files.
+# WGS Data Processing
 
--   \-o, --output \<path>. Set the directory of the output file, the current directory by default.
--   \--nosave. Intermediate files are not saved.
--   \--core \<int>. The number of processes running at the same time.
--   \--nMem \<str>. Maximum memory footprint.
--   \--nThrds \<int>. Number of multiple threads.
+## Download sequence data, `-- step downloadsra`
 
-# Module1 WGS data processing
+For downloading sequence data, utilize the following commands and their respective parameters:
 
-## Download sequencing data, -- step downloadsra
-
--   \--sra \<str>. Downloads based on one or more sra accession, with spaces separating sra accession.
--   \--sralist \<filename>. Download according to srr\_list.txt. Each line in srr\_list.txt is an sra accession.
--   \--core \<int>. Number of simultaneous downloads.
+-   `--sra <str>`: Download .sra files based on specified SRA accessions. Separate multiple accessions by spaces.
+-   `--sralist <filename>`: Download SRA files using a list in a file (`srr_list.txt`). Each line in the file represents an SRA accession.
+-   `--nThrds <int>`: Number of simultaneous downloads to be initiated.
 
 `gwaswa --step downloadsra --sra SRR1111111 [SRR2222222 ...]`
 
 `gwaswa --step downloadsra --sralist srr_list.txt`
 
-The sample.sra file downloaded according to the sra accession is stored in the gwaswaOutput/wgs/sra directory. If the download fails, the err\_sra\_log.txt file is generated in the gwaswaOutput/wgs/sra directory to store the failed sra accession.
+The downloaded `.sra` files associated with the specified SRA accession(s) will be stored in the `gwaswaOutput/wgs/sra` directory. In case of download or integrity verification failures, the file `err_sra_log.txt` will be generated in the `gwaswaOutput/wgs/sra` directory to track failed SRA accessions.
 
-## Sra to fastq, --step sratofastq
+## Convert SRA to FASTQ, `--step sratofastq`
 
--   \--sradir \<path>. Provides a directory that holds every sra file that needs to be converted to fastq format.
--   \--core \<int>. the number of processes that convert core sra files into fastq format at the same time, including compression of fastq format.
--   \--nThrds \<int>. Number of threads, number of threads used by the process.
+To convert SRA files to FASTQ format, employ the following command with the respective parameters:
+
+-   `--sradir <path>`: Directory containing the `.sra` files to be converted into FASTQ format.
+-   `--nThrds <int>`: Number of simultaneous conversions into FASTQ format, including compression into `.gz` files.
 
 `gwaswa --step sratofastq --sradir gwaswaOutput/wgs/sra `
 
-After the sample.sra file in the input directory is converted, the resulting sample.fastq file is stored in the gwaswaOutput/wgs/raw directory in the. gz format.
+Once the conversion of the input `.sra` files in the designated directory is completed, the resulting `.fastq` files will be stored in the `gwaswaOutput/wgs/raw` directory in `.gz` format.
 
-## Fastq quality control, --step readsqc
+## FASTQ quality control, `--step readsqc`
 
--   \--rawfastqdir \<path>. Provides a directory for each fastq file that needs to be quality controlled.
--   \--quality \<int>. The default Phred value is 20. The Phred threshold is set and the linker sequence is removed while the low quality bases at the 3 'end are trimmed.
--   \--phred \<str>. Select the Illumina version to use, optional:
-    -   phred33: default. Applies to illumina 1.9: Instruct cutadapt to use an ASCII 33 quality score as the par score.
-    -   phred64: Applies to Illumina 1.5: Instruct cutadapt to use the ASCII 64 quality score as the par score.
--   \--length \<int>. The default value is 20,0 means that this option is not set. set the length threshold. if the length of read is less than this threshold after quality control cleaning or uncoupling, it will be rejected. For double-ended results, if one read in a pair of reads is discarded for this reason, the corresponding other read is also discarded. will not be output to the double ended result file. A value of 0 disables this behavior.
--   \--stringency \<int>. The default value is 1. How many bases of the linker sequence can be allowed to remain at the end.
--   \--error \<float>. The default value is 0.1. Maximum allowable error rate.
--   \--core \<int>. The number of processes that perform fastq quality control at the same time, including compression of fastq format.
--   \--nThrds \<int>. Number of threads used by each process
+To perform quality control on FASTQ files, utilize the following command with the associated parameters:
+
+-   `--rawfastqdir <path>`: Directory containing FASTQ files for quality control.
+-   `--quality <int>`: Set the Phred quality threshold. The default value is 20. Low-quality bases at the 3' end are trimmed based on this threshold.
+-   `--phred <str>`: Choose the Illumina version for quality scoring. Options:
+    -   `phred33`: Default. For Illumina 1.9+ using ASCII 33 quality scores.
+    -   `phred64`: For Illumina 1.5 using ASCII 64 quality scores.
+-   `--length <int>`: Sets a length threshold. Reads below this threshold after quality control will be rejected. The default is 20.
+-   `--stringency <int>`: The default value is 1. Allows a certain number of bases of the linker sequence to remain at the end.
+-   `--error <float>`: The default value is 0.1. Specifies the maximum allowable error rate.
+-   `--nThrds <int>`: Number of concurrent quality control processes for FASTQ files, including compression into `.fq.gz` format.
 
 `gwaswa --step readsqc --rawfastqdir gwaswaOutput/wgs/raw`
 
-The fastq file after quality control will be stored in the gwaswaOutput/wgs/clean directory in the compressed format of .fq.gz.
+Once the quality control process is completed, the cleaned FASTQ files will be stored in the `gwaswaOutput/wgs/clean` directory in `.fq.gz` compressed format.
 
-## Quality assessment, --step qualityevaluation
+## Quality evaluation, `--step qualityevaluation`
 
--   \--fastqdir\<path>. Provide a directory of fastq files that require quality assessment.
--   \--nThrds \<int>. Number of threads used for quality assessment
+For quality evaluation of FASTQ files, employ the following command with its respective parameters:
+
+-   `--fastqdir <path>`: Directory containing the FASTQ files needing quality evaluation.
+-   `--nThrds <int>`: Number of threads allocated for quality evaluation.
 
 `gwaswa --step qualityevaluation --fastqdir gwaswaOutput/wgs/clean`
 
-The quality assessment file contains the results of the quality assessment using fastqc and multiqc and is stored in the gwaswaOutput/wgs/qualityEvaluation directory.
+The quality evaluation report, generated using `fastqc` and `multiqc`, will be stored in the `gwaswaOutput/wgs/qualityEvaluation` directory.
 
-## Establish a reference genome index, --step downloadref
+## Download & index reference genome, `--step downloadref`
 
--   \--accession \<str>. If a local reference genome file is not available, an NCBI Reference sequence can be provided to download the reference genome sequence.
+For downloading and indexing the reference genome, you can use the following commands with their respective parameters:
 
-    `gwaswa --step downloadref  --refaccession GCF_000001735.4`
--   \--taxon \<str>. If a local reference genome file is not available, the NCBI Taxonomy ID or taxonomy name can be provided to download the reference genome sequence.
+-   `--accession <str>`: Use this to provide an NCBI Reference sequence accession if you don't have a local reference genome file available. This will download the reference genome sequence.
 
--   \--refgenome \<filename>. Use this parameter if you have a local reference genome file.
+    `gwaswa --step downloadref --refaccession GCF_000001735.4`
+    
+-   `--taxon <str>`: If you don't have a local reference genome file, you can provide an NCBI Taxonomy ID or taxonomy name to download the reference genome sequence.
 
-    `gwaswa --step downloadref --refgenome example/wgs/ref.fa.gz`
+-   `gwaswa --step downloadref --taxon 3702`
 
--   \--indexalgorithm \<str>。
+-   `--refgenome <filename>`: Use this parameter if you already have a local reference genome file available.
 
-    -   Is: Fast, but requires a large memory. The database cannot be used when it is larger than 2G.
-    -   bwtsw: By default, the sequence needs to be greater than or equal to 10MB to use, which can be used to build larger genomic data.
+    `gwaswa --step downloadref --refgenome example/ref.fa.gz`
 
-The reference genome sequence is downloaded and stored in the gwaswaOutput/wgs/ref directory, and the reference genome index file is stored in the same directory as the reference genome.
+The reference genome sequence is downloaded and stored in the `gwaswaOutput/wgs/ref` directory, and the reference genome index file is stored in the same directory as the reference genome.
 
-## Comparison of reference genome, --step align
+## Alignment reference genome, `--step align`
 
--   \--cleanfastqdir \<path>. Provide a directory to store each fastq file after quality control.
--   \--alignalgorithm\<str>. The algorithm used to align the reference genome.
-    -   mem: default. This algorithm is recommended when the reads length is in the range of 70bp-1Mbp.
-    -   bwasw: when reads has frequent gap, it is more sensitive than, and this algorithm is recommended. Reads are typically 70bp-1Mbp in length.
-    -   backtrack: If the reads length is less than 70bp, this algorithm is recommended. It is recommended that the reads length is less than 100bp. backtrack contains:
-        -   aln: aln command to align individual reads to a reference sequence
-        -   samse: then use samse or sampe to generate the sam file.
-        -   sampe: Use samse or sampe to generate the sam file.
--   \--refgenome \<filename>. Local reference genome files, use this parameter.
--   \--core \<int>. Number of fastq files to be compared at the same time.
--   \--nThrds \<int>. Compare the number of threads used per fastq file
+To align the reference genome, you can use the following command with its associated parameters:
+
+-   `--cleanfastqdir <path>`: Directory for storing each FASTQ file post quality control.
+-   `--alignalgorithm <str>`: Choice of alignment algorithm.
+    -   `mem`: Default. Recommended for read lengths in the range of 70bp-1Mbp.
+    -   `bwasw`: More sensitive for reads with frequent gaps, suitable for reads typically 70bp-1Mbp in length.
+    -   `backtrack`: Recommended for reads less than 100bp.
+-   `--refgenome <filename>`: Local reference genome file to be used for alignment.
+-   `--nThrds <int>`: Number of FASTQ files to be aligned simultaneously.
 
 `gwaswa --step align --cleanfastqdir gwaswaOutput/wgs/clean --refgenome gwaswaOutput/wgs/ref/ref.fa `
 
-After genome comparison of the fastq file in the input directory, the sample.bam file is generated in the gwaswaOutput/wgs/align directory.
+Upon aligning the reference genome with the FASTQ file in the input directory, the resulting `sample.bam` file will be generated in the `gwaswaOutput/wgs/align` directory.
 
-## Processing bam files, --step dealbam
+## BAM files processing, `--step dealbam`
 
--   \--bamdir \<path>. Provide a directory that stores each post-alignment bam file.
--   \--refgenome \<filename>. Use this parameter if you have a local reference genome file.
--   \--delPCR. Remove pcr duplicates
--   \--core \<int>. The number of bam files to be processed at the same time.
--   \--nThrds \<int>. Number of threads used to process each bam file
+To BAM files processing, use the following command with its associated parameters:
+
+-   `--bamdir <path>`: Directory containing each post-alignment BAM file.
+-   `--refgenome <filename>`: Local reference genome file.
+-   `--delPCR`: Removal of PCR duplicates.
+-   `--nThrds <int>`: Number of BAM files to be processed simultaneously.
 
 `gwaswa --step dealbam --bamdir gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa`
 
-The bam files in the input directory are sorted, pcr duplicates are removed, indexes are built, and sample\_marked.bam, sample\_marked.bam.bai are generated in the gwaswaOutput/wgs/processed directory.
+Upon processing the BAM files in the input directory, tasks such as sorting, PCR duplicate removal, and index building will be performed. The resulting `sample_marked.bam` and `sample_marked.bam.bai` files will be generated in the `gwaswaOutput/wgs/processed` directory.
 
-## Mutation detection, --step detect
+## Variant detection, `--step detect`
 
--   \--processedbamdir \<path>. Provide a directory where each processed bam file is stored.
--   \--refgenome \<filename>. Use this parameter if you have a local reference genome file.
--   \--core \<int>. The number of bam files with simultaneous mutation detection.
--   \--nThrds \<int>. Detects the number of threads used per bam file
+For variant detection, use the following command along with its associated parameters:
+
+-   `--processedbamdir <path>`: Directory containing each processed BAM file.
+-   `--refgenome <filename>`: Local reference genome file.
+-   `--nThrds <int>`: Number of simultaneous BAM files for variant detection.
 
 `gwaswa --step detect --processedbamdir gwaswaOutput/wgs/processed --refgenome gwaswaOutput/wgs/ref/ref.fa`
 
-After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the gwaswaOutput/wgs/gvcf directory.
+Upon detecting the variants in the BAM files within the input directory, the resulting `sample_g.vcf` file and its index will be generated in the `gwaswaOutput/wgs/gvcf` directory.
 
-## Jointgenotype，--step jointgenotype
+## Jointgenotype, `--step jointgenotype`
 
--   \--gvcfdir \<path>. Provide a directory where each gvcf file is stored.
--   \--refgenome \<filename>. Use this parameter if you have a local reference genome file.
--   \--core \<int>. Number of gvcf files split by chromosome at the same time.
+-   `--gvcfdir <path>`: Directory containing each gVCF file.
+-   `--refgenome <filename>`: Local reference genome file.
+-   `--nThrds <int>`: Number of gVCF files split by chromosome simultaneously.
 
 `gwaswa --step jointgenotype --gvcfdir gwaswaOutput/wgs/gvcf --refgenome gwaswaOutput/wgs/ref/ref.fa`
 
-In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
+The joint genotyping process involves several steps:
 
-## Vcf quality control, --step vcfqc
+1.  Dividing gVCF Files by Chromosome: Initially, each sample's `g.vcf` file in the input directory is split by chromosome and stored in the `gwaswaOutput/wgs/gvcf_chr` directory.
+2.  Merging Samples by Chromosome: Next, all samples are merged by chromosome, generating `chrX_g.vcf` and its index file in the `gwaswaOutput/wgs/vcf` directory.
+3.  Re-comparison of Chromosomal Files: Each `chrX_g.vcf` file is re-compared to obtain the `chrX_vcf` file.
+4.  Final Merging for Genotyping: The `chrX_vcf` files are then merged to generate `genotype.vcf` and its index files, stored in the `gwaswaOutput/wgs/vcf` directory.
 
--   \--vcfdir \<filename>. Provide the vcf file that holds the variant genotype information.
--   Do hard filtering for SNPs
-    -   \--snpQUAL \<float>. The default value is 30.0. The variation quality value is the value of QUAL in the VCF and is used to measure the reliability of the variation.
-    -   \--snpQD \<float>. SNPQualByDepth, the default value is 2.0. QD is the ratio of the variant quality value (Quality) divided by the depth of coverage (Depth).
-    -   \--snpMQ \<float>. RMSMappingQuality, the default value is 40.0. It is more accurate to describe the degree of dispersion of the quality value of the comparison than the average value.
-    -   \--snpFS \<float>. FisherStrand, the default value is 60.0. The value converted from the p-value of Fisher's test is to describe whether there is obvious positive and negative strand specificity for read containing only variation and read containing only reference sequence bases during sequencing or alignment.
-    -   \--snpSOR \<float>. StrandOddsRatio, the default value is 3.0. SOR was calculated using the symmetric odds ratio test statistical test, corrected for strand specificity.
-    -   \--snpMQRankSum \<float>. MappingQualityRankSumTest, the default value is -12.5.
-    -   \--snpReadPosRankSum \<float>. ReadPosRankSumTest, the default value is -8.0.
--   do hard filtering for indel
-    -   \--indelQUAL \<float>. The default value is 30.0.
-    -   \--indelQD \<float>. SNPQualByDepth, the default value is 2.0.
-    -   \--indelFS \<float>. FisherStrand, the default value is 60.0.
-    -   \--indelSOR \<float>. StrandOddsRatio, the default value is 3.0.
-    -   \--indelMQRankSum \<float>. MappingQualityRankSumTest, the default value is -12.5.
-    -   \--indelReadPosRankSum \<float>. ReadPosRankSumTest, the default value is -8.0.
+## VCF quality control, `--step vcfqc`
+
+For conducting VCF quality control, use the following command along with its associated parameters:
+
+-   `--vcfdir <filename>`: Specifies the VCF file containing variant genotype information.
+-   Hard filtering for SNPs:
+    -   `--snpQUAL <float>`: The default value is 30.0. This parameter represents the variant quality value, which measures the reliability of the variation based on the QUAL field in the VCF.
+    -   `--snpQD <float>`: The default value is 2.0. QD (SNPQualByDepth) is the ratio of the variant quality value divided by the depth of coverage.
+    -   `--snpMQ <float>`: The default value is 40.0. MQ (RMSMappingQuality) describes the degree of dispersion of the quality value of the alignment, rather than just the average value.
+    -   `--snpFS <float>`: The default value is 60.0. FS (FisherStrand) is derived from the p-value of Fisher's test and describes strand specificity for reads containing variations and reads containing reference sequence bases during sequencing or alignment.
+    -   `--snpSOR <float>`: The default value is 3.0. SOR (StrandOddsRatio) is calculated using the symmetric odds ratio test, corrected for strand specificity.
+    -   `--snpMQRankSum <float>`: The default value is -12.5. The MappingQualityRankSumTest is used to assess whether the mapping qualities of the reads supporting the reference allele and the alternate allele are significantly different for SNP positions.
+    -   `--snpReadPosRankSum <float>`: The default value is -8.0. The Read Position Rank Sum Test for SNPs evaluates the differences in the position of the reads supporting the reference versus the alternate allele.
+-   Hard filtering for indels:
+    -   `--indelQUAL <float>`: The default value is 30.0.
+    -   `--indelQD <float>`: The default value is 2.0.
+    -   `--indelFS <float>`: The default value is 60.0.
+    -   `--indelSOR <float>`: The default value is 3.0.
+    -   `--indelMQRankSum <float>`: The default value is -12.5.
+    -   `--indelReadPosRankSum <float>`: The default value is -8.0.
 
 `gwaswa --step vcfqc --vcfdir gwaswaOutput/wgs/vcf/genotype.vcf --refgenome gwaswaOutput/wgs/ref/ref.fa`
 
-The imported genotype.vcf file undergoes quality control to generate genotype\_filter.vcf and its index file, which is stored in the gwaswaOutput/wgs/vcf directory.
+The `genotype.vcf` file undergoes quality control, generating `genotype_filter.vcf` and its index file, which are stored in the `gwaswaOutput/wgs/vcf` directory.
 
-# Module2 GWAS pre-processing
+# GWAS Data Pre-processing
 
-## Genotype filling, --step impute
+## Genotype imputation, `--step impute`
 
--   \--genotypefile \<filename>. Provide the vcf file that holds the variant genotype information.
--   \--nMem \<str>. Maximum memory footprint
--   \--nThrds \<int>. Number of multiple threads used for genotype fill
+To perform genotype imputation, use the following command with its associated parameters:
+
+-   `--genotypefile <filename>`: The VCF file containing variant genotype information.
+-   `--nMem <str>`: Maximum memory footprint.
+-   `--nThrds <int>`: Number of multiple threads used for genotype imputation.
 
 `gwaswa --step impute --genotypefile gwaswaOutput/wgs/vcf/genotype_filter.vcf.gz`
 
-The input vcf file is filled with genotypes, and the genotype.vcf.gz file is generated in the gwaswaOutput/gwas/transvcf directory.
+Upon executing this command, the input VCF file will be imputed with genotypes, and the resulting `genotype.vcf.gz` file will be generated in the `gwaswaOutput/gwas/transvcf` directory.
 
-## Vcf to bfile, --step transvcf
+## Convert VCF to bfiles, `--step transvcf`
 
--   \--genotypefile \<filename>. Provide the vcf file that holds the variant genotype information.
--   \--phenotypefile \<filename>. Provide the phenotype file. Three columns are required: sample id,family id, and phenotype value, separated by spaces.
+For converting VCF to bfiles, utilize the following command with its associated parameters:
+
+-   `--genotypefile <filename>`: VCF file containing variant genotype information.
+-   `--phenotypefile <filename>`: The phenotype file comprises three columns: sample ID, family ID, and phenotype value (separated by spaces).
 
 `gwaswa --step transvcf --genotypefile gwaswaOutput/gwas/transvcf/genotype.vcf.gz --phenotypefile pheno.txt`
 
-The input vcf file is converted to generate a bfile file and stored in the part2/transvcf directory. Contains. bim,. fam,. bed files. The phenotype file is added to the fam file.
+This command executes the conversion process, generating bfiles stored in the `part2/transvcf` directory. The bfiles include `.bim`, `.fam`, and `.bed` files, while the phenotype file is added to the `.fam` file.
 
-## GWAS quality control, --step gwasqc
+## GWAS quality control, `--step gwasqc`
 
--   \--bfiledir \<path>. Provides a directory where the bfile files are stored.
--   \--atgc keeps only ATGC
--   \--snpmiss \<float>. The default value is 0.2. The missing SNPs in the majority of the subjects were excluded. In this step, SNPs of low genotype are deleted.
--   \--indmiss \<float>. The default value is 0.2. Individuals with high rate of genotype deletion were excluded. In this step, individuals of low genotype are removed. In this step, SNPs of low genotype are deleted.
--   \--maf \<float>. The default value is 0.05. Minimum allele frequency. SNPs with low MAF are rare and therefore lack the ability to detect SNP phenotypic associations. These SNPs are also more prone to genotyping errors.
--   \--hwe \<str>. The default value is 1e-6. Exclusion of indicators that deviated from Hardy-Weinberg equilibrium in the control group.
--   \--hweall \<str>. The default value is 1e-6. Exclude all indicators of sample deviation from Hardy-Weinberg equilibrium.
--   \--indep \<str>。\<window size>\['kb'] \<step size (variant ct)> \<VIF threshold>
--   \--indepPairwise\<str>。\<window size>\['kb'] \<step size (variant ct)> \<r^2 threshold>
--   \--indepPairphase \<str>。\<window size>\['kb'] \<step size (variant ct)> \<r^2 thresh>
--   \--heterozygosity \<float>. The default value is 3. Exclude individuals with high or low heterozygosity
--   \--checksex check gender differences.
--   \--rmproblemsex, delete the problem gender
--   \--imputesex, gender filled based on genotype information
+For GWAS quality control, use the following command with its associated parameters:
+
+-   `--bfiledir <path>`: Directory containing the bfiles.
+-   `--atgc`: Retains only ATGC alleles.
+-   `--snpmiss <float>`: The default is 0.2. Excludes SNPs with high missingness among subjects.
+-   `--indmiss <float>`: The default is 0.2. Excludes individuals with a high rate of genotype deletion.
+-   `--maf <float>`: The default is 0.05. Sets the minimum allele frequency, filters out SNPs with low MAF.
+-   `--hwe <str>`: The default is 1e-6. Filters out SNPs deviating from Hardy-Weinberg equilibrium in the control group.
+-   `--hweall <str>`: The default is 1e-6. Filters out all sample deviations from Hardy-Weinberg equilibrium.
+-   `--indep <str>`: Utilized for Linkage Disequilibrium (LD) pruning, specifying the window size, step, and variance inflation factor. For instance, `--indep 50 5 2` would mean a window size of 50 SNPs, a step of 5 SNPs, and a variance inflation factor of 2.
+-   `--indepPairwise <str>`: Applied for LD-based SNP pruning using pairwise LD calculation. Specifying the window size, step, and paired r2 threshold.
+-   `--indepPairphase <str>`: This parameter is also used for LD-based SNP pruning, but it specifically considers phased haplotype data.
+-   `--heterozygosity <float>`: The default is 3. Exclude individuals with high or low heterozygosity.
+-   `--checksex`: check gender differences.
+-   `--rmproblemsex`: Deletes individuals with problematic gender assignments.
+-   `--imputesex`: Imputes gender based on genotype information.
 
 `gwaswa --step gwasqc --bfiledir gwaswaOutput/gwas/transvcf`
 
-the bfile file of the input directory is subjected to quality control, and the bfile file after quality control and the intermediate file of quality control are generated and stored in the gwas/qc directory.
+Upon executing this command, the bfiles in the input directory will undergo quality control, resulting in the creation of the bfiles after quality control and intermediate quality control files, all stored in the `gwaswaOutput/gwas/qc` directory.
 
-## PCA analysis, --step pca
+## Population structure analysis, `--step pca`
 
--   \--cleanbfiledir\<path>. Provides a directory where the bfile files are stored.
--   \--pcanum \<int>. The default is 6. Number of principal component analyses.
--   \--groupnum \<int>. By default, the number of groups with the lowest cv error value is selected from 2-20 groups as the number of groups.
+For conducting population structure analysis, use the following command with its associated parameters:
+
+-   `--cleanbfiledir <path>`: Directory containing the bfiles.
+-   `--pcanum <int>`: The default is 6. The number of principal components for analysis.
+-   `--groupnum <int>`: Number of populations for analysis. If not specified, it determines the group number with the lowest CV error among 2-20 groups.
 
 `gwaswa --step pca --groupnum 3 --cleanbfiledir gwaswaOutput/gwas/gwasqc`
 
-After group structure analysis and pca analysis, the bfile in the input directory generates pca eigenvalue pca.eigenval and eigenvector pca.eigenvec. The principal component analysis diagram pca.png and group structure diagram admixture.png are drawn and stored in the part2/pca directory.
+Upon execution, the input bfiles undergo population structure analysis and PCA, resulting in the generation of `pca.eigenval` and `pca.eigenvec` files containing PCA eigenvalues and eigenvectors. Additionally, it produces diagrams illustrating the principal component analysis (`pca.png`) and population structure (`admixture.png`), all stored in the `gwaswaOutput/gwas/pca` directory.
 
-Principal component analysis figure pca.png
+Principal component analysis chart.
 
 ![](image/pca.png)
 
-Group Structure Chart admixture.png
+Population structure chart.
 
 ![](image/admixture.png)
 
-## Kinship analysis, --step kinship
+## Kinship analysis, `--step kinship`
 
--   \--cleanbfiledir \<path>. Provides a directory where the bfile files are stored.
+To conduct kinship analysis, use the following command with its associated parameter:
+
+-   `--cleanbfiledir <path>`: Directory containing the bfiles.
 
 `gwaswa --step kinship --cleanbfiledir gwaswaOutput/gwas/gwasqc`
 
-After kinship analysis, the bfile in the input directory generates kinship.txt, draws kinship.png, and stores it in the part2/kinship directory.
+Upon execution, the input bfiles undergo kinship analysis, resulting in the generation of `kinship.txt` and the `kinship.png` diagram. These files are stored in the `gwaswaOutput/gwas/kinship` directory.
 
-kinship.png
+Kinship analysis chart.
 
 ![](image/kinship.png)
 
-# Module3 Association analysis
+# Association Analysis
 
-## Association analysis, --step association
+## Association analysis, `--step association`
 
--   \--cleanbfiledir \<path>. Provides a directory where the bfile files are stored.
+To conduct association analysis, use the following command with its associated parameters:
+
+-   `--cleanbfiledir <path>`: Directory containing the bfiles.
 
 -   Association analysis model, optional:
 
-    -   \--lm. generalized linear model.
+    -   `--lm`: Generalized linear model.
 
         `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lm`
 
-    -   \--lmm. mixed linear model.
+    -   `--lmm`: Mixed linear model.
 
-        -   \--pcafile \<filename>. Optionally, provide the pca result file as a covariate.
-        -   \--kinshipfile \<filename>. Optionally, provide the kinship result file as a covariate. If it is not provided, it will be automatically generated.
+        -   `--pcafile <filename>`: Optionally provide the PCA result file as a covariate.
+        -   `--kinshipfile <filename>`: Optionally provide the kinship result file as a covariate. If not provided, it will be automatically generated.
             `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec`
 
-After Association analysis, the bfile in the input directory generates a result.assoc.txt file that stores the information of each variant site, and a variant.vcf file that filters out significantly associated SNPs, draws man.png of Manhattan map and qq.png of qq map, and stores them in the part2/kinship directory.
+Upon execution, the association analysis generates a `result.assoc.txt` file containing information for each variant site. Additionally, it creates graphical representations of the analysis, including a `man.png` Manhattan plot and a `qq.png` QQ plot. These files are stored in the `gwaswaOutput/gwas/association` directory.
 
-Manhattan Figure man.png
+Manhattan plot.
 
 ![](image/man.png)
 
-QQ plot qq.png
+QQ plot.
 
 ![](image/qq.png)
 
-### Screening for significant variation, --step selectsnp
+## Select significant variant, `--step selectsnp`
 
--   \--assocfile, association analysis result file. result.assoc.txt
--   \--pvaluelimit \<str>. Default 1e-5. Filters out snps greater than pvaluelimit.
+To select significant variants, use the following command with its associated parameters:
+
+-   `--assocfile`: Association analysis result file.
+-   `--pvaluelimit <str>`: Default is 1e-5. Filters out SNPs greater than the specified p-value limit.
 
 `gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5`
 
-# Module4 Assessment of variant functional effect
+Executing this command generates a `snps.txt` file that filters out significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
 
-## Variation impact assessment, --step assess
+# Assessment of Variant Functional Effect
 
-\--species \<str>. Research target species name.
+## Variant impact assessment, `--step assess`
 
-\--snpfile \<filename>. The association analysis results file variant.vcf is provided as input.
+For variant impact assessment, utilize the following parameters:
 
--   SIFT(Sorting Intolerant From Tolerant) is a computational method used to predict the impact of protein variation, which can predict whether a protein variation has a functional impact based on the alignment sequence and protein structure information.
+`--species <str>`: Target species name for the analysis.
 
-    In SIFT's prediction results, it will be divided into the following four categories according to the degree of influence of variation:
+`--snpfile <filename>`: Input association analysis results file.
 
-    1.  Tolerated (tolerable): The mutation has no significant effect on the function of the protein, and the mutation site is usually a highly variable region, which is unlikely to be the cause of the disease.
-    2.  Tolerated\_Low\_Confidence (low confidence tolerable): The variation has no obvious effect on the function of the protein, but due to the limitation of the aligned sequence and protein structure, the confidence of this prediction result is low and needs further verification.
-    3.  Deleterious (deleterious): Variations that have a pronounced effect on the function of a protein may result in changes in the structure or function of the protein that can cause disease or other biological effects.
-    4.  Deleterious\_Low\_Confidence (low confidence harmful): The variation has a significant impact on the function of the protein, but due to the limitations of the aligned sequence and protein structure, the confidence of this prediction is low and needs further verification.
-        It should be noted that the prediction results of SIFT are based on the alignment sequence and protein structure information, and the prediction results may be affected by the quality of the alignment, the limitation of structural information and other factors, so the prediction results need to be further verified.
+`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf`
 
--   PolyPhen(Polymorphism Phenotyping) is a computational method used to predict the potential impact of amino acid substitutions on protein structure and function. It provides a score for each replacement, reflecting the probability that the replacement may cause damage to protein function.
-
-    In the PolyPhen scoring system, substitutions are divided into the following three categories:
-
-    1.  Possibly Harmful (probably damaging): The substitution is predicted to have a serious effect on protein function, possibly leading to disease or other biological effects.
-    2.  Possibly Harmful (possibly damaging): The substitution prediction may have some effect on protein function, but it is not significant or severe enough to have a minor effect on protein function.
-    3.  Benign: The replacement is predicted to have no significant effect on protein function, is usually found in regions of high variation, and is unlikely to cause disease.
-        It should be noted that the PolyPhen score is only based on protein structure and function prediction, and its prediction results need to be further verified.
-
-`gwaswa --step vep --snpfile MypipeOutput/gwas/association/lm/variant_lm.vcf`
-
-[^1]: Jiang K, Yang Z, Cui W, et al. An exome-wide association study identifies new susceptibility loci for age of smoking initiation in African-and European-American populations\[J]. Nicotine and Tobacco Research, 2019, 21(6): 707-713.
-
-[^2]: Marees A T, de Kluiver H, Stringer S, et al. A tutorial on conducting genome‐wide association studies: Quality control and statistical analysis\[J]. International journal of methods in psychiatric research, 2018, 27(2): e1608.
+Upon execution, the input variation is evaluated, generating an 'assessment_Summary.html' file. This file is stored in the `gwaswaOutput/assessment` directory.
 
 # Quick Start
 
-## Module 1 WGS data Processing
+## WGS data Processing
 
-Using E. coli WGS data SRR1770413 as an example
+This guide offers a systematic approach to processing WGS data using E.coli dataset SRR1770413 as an example.
 
-### Download sequencing data, --step downloadsra
+### Download sequencing data, `--step downloadsra`
 
 `gwaswa --step downloadsra --sra SRR1770413 --output coli`
 
-The file SRR1770413.sra will be stored in the coli/gwaswaOutput/wgs/sra/path
+The `SRR1770413.sra` file will be stored in the path `coli/gwaswaOutput/wgs/sra`.
 
-### Sra to fastq, --step sratofastq
+### Convert SRA to FASTQ, `--step sratofastq`
 
 `gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --output coli`
 
-The converted file will be stored in the compressed format of coli/gwaswaOutput/wgs/raw
+The converted files will be stored in the compressed format in `coli/gwaswaOutput/wgs/raw`.
 
-### Fastq quality control, --step readsqc
+### FASTQ quality control, `--step readsqc`
 
 `gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --output coli`
 
-The fastq file after quality control will be stored in the coli/gwaswaOutput/wgs/clean directory in the compressed format of .fq.gz.
+The quality-controlled FASTQ files will be stored in `coli/gwaswaOutput/wgs/clean` in compressed `.fq.gz` format.
 
-### Quality evaluation, --step qualityevaluation
+### Quality evaluation, `--step qualityevaluation`
 
 `gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --output coli`
 
-Contains the results of quality evaluations using fastqc and multiqc, stored in the gwaswaOutput/wgs/qualityEvaluation directory.
+The quality evaluation results will be saved in `coli/gwaswaOutput/wgs/qualityEvaluation`.
 
-### Download the reference genome and build its index, --step downloadref
+### Download & index reference genome, `--step downloadref`
 
 `gwaswa --step downloadref --accession GCF_000005845.2 --output coli`
 
-The reference genome index file is stored in the same directory as the reference genome.
+The reference genome and its index will be stored in `coli/gwaswaOutput/wgs/ref`.
 
-### Compare reference genome, --step align
+### Alignment of reference genome, `--step align`
 
 `gwaswa --step align --cleanfastqdir coli/gwaswaOutput/wgs/clean --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-The .sam file is converted to a .bam file and stored in the coli/gwaswaOutput/wgs/align directory.
+The alignment results will be stored in the `coli/gwaswaOutput/wgs/align` directory.
 
-### Process bam files, --step dealbam
+### Process BAM files, `--step dealbam`
 
 `gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-The resulting. bam file is stored in the coli/gwaswaOutput/wgs/processed directory.
+The resulting `.bam` file is stored in the `coli/gwaswaOutput/wgs/processed` directory.
 
-### Variant detection, --step detect
+### Variant detection, `--step detect`
 
 `gwaswa --step detect --processedbamdir coli/gwaswaOutput/wgs/processed --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-After the bam file in the input directory is detected, sample\_g.vcf and its index file are generated in the coli/gwaswaOutput/wgs/gvcf directory.
+After detection, `sample_g.vcf` and its index file are generated in the `coli/gwaswaOutput/wgs/gvcf` directory.
 
-### Jointgenotype，--step jointgenotype
+### Jointgenotype, `--step jointgenotype`
 
 `gwaswa --step jointgenotype --gvcfdir coli/gwaswaOutput/wgs/gvcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-In order to reduce the jointgenotype time, first, the\_g.vcf file of each sample in the input directory is divided by chromosome and stored in the gwaswaOutput/wgs/gvcf\_chr directory. Secondly, merge all samples by chromosome, and get chrX\_g.vcf and its index file in gwaswaOutput/wgs/vcf directory. Then, the chrX\_g.vcf is re-compared respectively to obtain the chrX\_vcf file. Finally, the chrX\_vcf files are merged to generate genotype.vcf and its index files, which are stored in the gwaswaOutput/wgs/vcf directory.
+The resulting `genotype.vcf` and its index file are stored in the `coli/gwaswaOutput/wgs/vcf` directory.
 
-### Vcf quality control, --step vcfqc
+### VCF quality control, `--step vcfqc`
 
 `gwaswa --step vcfqc --vcfdir coli/gwaswaOutput/wgs/vcf/genotype.vcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-The imported genotype.vcf file undergoes quality control to generate genotype\_filter.vcf and its index file, which is stored in the gwaswaOutput/wgs/vcf directory.
+The resulting `genotype_filter.vcf` and its index file are stored in the `coli/gwaswaOutput/wgs/vcf` directory.
 
-## Modules 2 and 3 
+## GWAS analysis
 
-Modules 2 and 3 deal with GWAS data and association analysis, taking the experiment of Jiang K et al. as an example[^1], with parameters configured according to the study of Marees A T et al[^2].
+This section covers GWAS data processing and association analysis using Jiang K et al.‘s experiment’[^1]  as an example. The parameters are configured according to the study of Marees A T et al[^2].
 
-### Vcf to bfile, --step transvcf
+### Convert VCF to bfiles, `--step transvcf`
 
 `gwaswa --step transvcf --genotypefile gwaswa/example/genotype.vcf.gz --phenotypefile gwaswa/example/pheno.txt --output example`
 
-The input vcf file is converted to generate a bfile file and stored in the part2/transvcf directory. Contains. bim,. fam,. bed files. The phenotype file is added to the fam file.
+The output bfiles are stored in the `example/gwaswaOutput/gwas/transvcf` directory, including `.bim`, `.fam`, and `.bed` files.
 
-### GWAS quality control, --step gwasqc
+### GWAS quality control, `--step gwasqc`
 
 `gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --snpmiss 0.2 --indmiss 0.2 --output example`
 
@@ -495,38 +466,45 @@ The input vcf file is converted to generate a bfile file and stored in the part2
 
 `gwaswa --step gwasqc --bfiledir example/gwaswaOutput/gwas/gwasqc --indepPairwise 50 5 0.2 --output example`
 
-the bfile file of the input directory is subjected to quality control, and the bfile file after quality control and the intermediate file of quality control are generated and stored in the gwas/qc directory.
+The processed bfiles, as well as intermediate quality control files, are stored in the `example/gwaswaOutput/gwas/qc` directory.
 
-### PCA analysis, --step pca
+### Population structure analysis, `--step pca`
 
 `gwaswa --step pca --groupnum 3 --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
 
-The results of population structure and principal component analysis are stored in the gwas/pca directory.
+The results of the population structure analysis are stored in the `example/gwaswaOutput/gwas/pca` directory.
 
-### Kinship analysis, --step kinship
+### Kinship analysis, `--step kinship`
 
 `gwaswa --step kinship --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --output example`
 
-The results of the kinship analysis are stored in the gwas/pca directory.
+The kinship analysis results are stored in the `example/gwaswaOutput/gwas/pca` directory.
 
-### Association analysis, --step association
+### Association analysis, `--step association`
 
 `gwaswa --step association --cleanbfiledir example/gwaswaOutput/gwas/gwasqc --lm --output example`
 
-The association analysis results are stored in the gwas/association directory.
+The results of the association analysis are stored in the `example/gwaswaOutput/gwas/association` directory.
 
-### Screening for significant variation, --step selectsnp
+### Select significant variants, `--step selectsnp`
 
 `gwaswa --step selectsnp --assocfile example/gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5 --output example`
 
-Filter results are stored in the gwas/selectsnp directory
+The filtered results are stored in the `example/gwaswaOutput/gwas/selectsnp` directory.
 
-## Module 4 Assessment of variant effect
+## Assessment of variant effect
 
-Using human non-coding variant rs11644125 as an example
+Using the example of a human non-coding variant `rs11644125`.
 
-### Variant effect assessment, --step assess
+### Variant effect assessment, `--step assess`
 
-`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf`
+`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf --output assess`
 
-vep and enformer results are stored in the assessment directory
+Evaluated variation impact results are stored in the `assess/gwaswaOutput/gwas/assessment` directory.
+
+
+
+[^1]: Jiang K, Yang Z, Cui W, et al. An exome-wide association study identifies new susceptibility loci for age of smoking initiation in African-and European-American populations[J]. Nicotine and Tobacco Research, 2019, 21(6): 707-713.
+
+[^2]: Marees A T, de Kluiver H, Stringer S, et al. A tutorial on conducting genome‐wide association studies: Quality control and statistical analysis[J]. International journal of methods in psychiatric research, 2018, 27(2): e1608.
+
