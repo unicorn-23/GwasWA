@@ -88,9 +88,10 @@ For downloading sequence data, utilize the following commands and their respecti
 -   `--sralist <filename>`: Download SRA files using a list in a file (`srr_list.txt`). Each line in the file represents an SRA accession.
 -   `--nThrds <int>`: Number of simultaneous downloads to be initiated.
 
-`gwaswa --step downloadsra --sra SRR1111111 [SRR2222222 ...]`
-
-`gwaswa --step downloadsra --sralist srr_list.txt`
+```
+gwaswa --step downloadsra --sra SRR1111111 [SRR2222222 ...]
+gwaswa --step downloadsra --sralist srr_list.txt
+```
 
 The downloaded SRA files associated with the specified SRA accession(s) will be stored in the `gwaswaOutput/wgs/sra` directory. In case of download or integrity verification failures, the file `err_sra_log.txt` will be generated in the `gwaswaOutput/wgs/sra` directory to track failed SRA accessions.
 
@@ -101,7 +102,9 @@ To convert SRA files to FASTQ format, employ the following command with the resp
 -   `--sradir <path>`: Directory containing the SRA files to be converted into FASTQ format.
 -   `--nThrds <int>`: Number of simultaneous conversions into FASTQ format, including compression into `.gz` files.
 
-`gwaswa --step sratofastq --sradir gwaswaOutput/wgs/sra `
+```
+gwaswa --step sratofastq --sradir gwaswaOutput/wgs/sra
+```
 
 Once the conversion of the input SRA files in the designated directory is completed, the resulting FASTQ files will be stored in the `gwaswaOutput/wgs/raw` directory in compressed format.
 
@@ -119,7 +122,9 @@ To perform quality control on FASTQ files, utilize the following command with th
 -   `--error <float>`: The default value is 0.1. Specifies the maximum allowable error rate.
 -   `--nThrds <int>`: Number of concurrent quality control processes for FASTQ files, including compression into `.fq.gz` format.
 
-`gwaswa --step readsqc --rawfastqdir gwaswaOutput/wgs/raw`
+```
+gwaswa --step readsqc --rawfastqdir gwaswaOutput/wgs/raw
+```
 
 Once the quality control process is completed, the cleaned FASTQ files will be stored in the `gwaswaOutput/wgs/clean` directory.
 
@@ -130,7 +135,9 @@ For quality evaluation of FASTQ files, employ the following command with its res
 -   `--fastqdir <path>`: Directory containing the FASTQ files needing quality evaluation.
 -   `--nThrds <int>`: Number of threads allocated for quality evaluation.
 
-`gwaswa --step qualityevaluation --fastqdir gwaswaOutput/wgs/clean`
+```
+gwaswa --step qualityevaluation --fastqdir gwaswaOutput/wgs/clean
+```
 
 The quality evaluation report, generated using `fastqc` and `multiqc`, will be stored in the `gwaswaOutput/wgs/qualityEvaluation` directory.
 
@@ -140,15 +147,23 @@ For downloading and indexing the reference genome, you can use the following com
 
 -   `--accession <str>`: Use this to provide an NCBI Reference sequence accession if you don't have a local reference genome file available. This will download the reference genome sequence.
 
-    `gwaswa --step downloadref --refaccession GCF_000001735.4`
+    ```
+    gwaswa --step downloadref --refaccession GCF_000001735.4
+    ```
     
 -   `--taxon <str>`: If you don't have a local reference genome file, you can provide an NCBI Taxonomy ID or taxonomy name to download the reference genome sequence.
 
--   `gwaswa --step downloadref --taxon 3702`
+-   ```
+    gwaswa --step downloadref --taxon 3702
+    ```
 
 -   `--refgenome <filename>`: Use this parameter if you already have a local reference genome file available.
 
-    `gwaswa --step downloadref --refgenome example/ref.fa.gz`
+    ```
+    gwaswa --step downloadref --refgenome example/ref.fa.gz
+    ```
+    
+    
 
 The reference genome sequence is downloaded and stored in the `gwaswaOutput/wgs/ref` directory, and the reference genome index file is stored in the same directory as the reference genome.
 
@@ -164,7 +179,9 @@ To align the reference genome, you can use the following command with its associ
 -   `--refgenome <filename>`: Local reference genome file to be used for alignment.
 -   `--nThrds <int>`: Number of FASTQ files to be aligned simultaneously.
 
-`gwaswa --step align --cleanfastqdir gwaswaOutput/wgs/clean --refgenome gwaswaOutput/wgs/ref/ref.fa `
+```
+gwaswa --step align --cleanfastqdir gwaswaOutput/wgs/clean --refgenome gwaswaOutput/wgs/ref/ref.fa
+```
 
 Upon aligning the reference genome with the FASTQ file in the input directory, the resulting BAM files will be generated in the `gwaswaOutput/wgs/align` directory.
 
@@ -177,7 +194,9 @@ To BAM files processing, use the following command with its associated parameter
 -   `--delPCR`: Removal of PCR duplicates.
 -   `--nThrds <int>`: Number of BAM files to be processed simultaneously.
 
-`gwaswa --step dealbam --bamdir gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa`
+```
+gwaswa --step dealbam --bamdir gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa
+```
 
 Upon processing the BAM files in the input directory, tasks such as sorting, PCR duplicate removal, and index building will be performed. The resulting `sample_marked.bam` and `sample_marked.bam.bai` files will be generated in the `gwaswaOutput/wgs/processed` directory.
 
@@ -189,7 +208,9 @@ For variant detection, use the following command along with its associated param
 -   `--refgenome <filename>`: Local reference genome file.
 -   `--nThrds <int>`: Number of simultaneous BAM files for variant detection.
 
-`gwaswa --step detect --processedbamdir gwaswaOutput/wgs/processed --refgenome gwaswaOutput/wgs/ref/ref.fa`
+```
+gwaswa --step detect --processedbamdir gwaswaOutput/wgs/processed --refgenome gwaswaOutput/wgs/ref/ref.fa
+```
 
 Upon detecting the variants in the BAM files within the input directory, the resulting `sample_g.vcf` file and its index will be generated in the `gwaswaOutput/wgs/gvcf` directory.
 
@@ -201,7 +222,9 @@ For jointgenotype, use the following command along with its associated parameter
 -   `--refgenome <filename>`: Local reference genome file.
 -   `--nThrds <int>`: Number of gVCF files split by chromosome simultaneously.
 
-`gwaswa --step jointgenotype --gvcfdir gwaswaOutput/wgs/gvcf --refgenome gwaswaOutput/wgs/ref/ref.fa`
+```
+gwaswa --step jointgenotype --gvcfdir gwaswaOutput/wgs/gvcf --refgenome gwaswaOutput/wgs/ref/ref.fa
+```
 
 The joint genotyping process involves several steps:
 
@@ -231,7 +254,9 @@ For conducting VCF quality control, use the following command along with its ass
     -   `--indelMQRankSum <float>`: The default value is -12.5.
     -   `--indelReadPosRankSum <float>`: The default value is -8.0.
 
-`gwaswa --step vcfqc --vcfdir gwaswaOutput/wgs/vcf/genotype.vcf --refgenome gwaswaOutput/wgs/ref/ref.fa`
+```
+gwaswa --step vcfqc --vcfdir gwaswaOutput/wgs/vcf/genotype.vcf --refgenome gwaswaOutput/wgs/ref/ref.fa
+```
 
 The `genotype.vcf` file undergoes quality control, generating `genotype_filter.vcf` and its index file, which are stored in the `gwaswaOutput/wgs/vcf` directory.
 
@@ -245,7 +270,9 @@ To perform genotype imputation, utilize the following command with its associate
 -   `--nMem <str>`: Maximum memory footprint.
 -   `--nThrds <int>`: Number of multiple threads used for genotype imputation.
 
-`gwaswa --step impute --genotypefile gwaswaOutput/wgs/vcf/genotype_filter.vcf.gz`
+```
+gwaswa --step impute --genotypefile gwaswaOutput/wgs/vcf/genotype_filter.vcf.gz
+```
 
 Upon executing this command, the input VCF file will be imputed with genotypes, and the resulting `genotype.vcf.gz` file will be generated in the `gwaswaOutput/gwas/transvcf` directory.
 
@@ -256,7 +283,9 @@ For converting VCF to bfiles, utilize the following command with its associated 
 -   `--genotypefile <filename>`: VCF file containing variant genotype information.
 -   `--phenotypefile <filename>`: The phenotype file comprises three columns: sample ID, family ID, and phenotype value (separated by spaces).
 
-`gwaswa --step transvcf --genotypefile gwaswaOutput/gwas/transvcf/genotype.vcf.gz --phenotypefile pheno.txt`
+```
+gwaswa --step transvcf --genotypefile gwaswaOutput/gwas/transvcf/genotype.vcf.gz --phenotypefile pheno.txt
+```
 
 This command executes the conversion process, generating bfiles stored in the `part2/transvcf` directory. The bfiles include BIM, FAM, and BED files, while the phenotype file is added to the FAM file.
 
@@ -279,7 +308,9 @@ For GWAS quality control, use the following command with its associated paramete
 -   `--rmproblemsex`: Deletes individuals with problematic gender assignments.
 -   `--imputesex`: Imputes gender based on genotype information.
 
-`gwaswa --step gwasqc --bfiledir gwaswaOutput/gwas/transvcf`
+```
+gwaswa --step gwasqc --bfiledir gwaswaOutput/gwas/transvcf
+```
 
 Upon executing this command, the bfiles in the input directory will undergo quality control, resulting in the creation of the bfiles after quality control and intermediate quality control files, all stored in the `gwaswaOutput/gwas/qc` directory.
 
@@ -291,7 +322,9 @@ For conducting population structure analysis, use the following command with its
 -   `--pcanum <int>`: The default value is 6. The number of principal components for analysis.
 -   `--groupnum <int>`: Number of populations for analysis. If not specified, it determines the group number with the lowest CV error among 2-20 groups.
 
-`gwaswa --step pca --groupnum 3 --cleanbfiledir gwaswaOutput/gwas/gwasqc`
+```
+gwaswa --step pca --groupnum 3 --cleanbfiledir gwaswaOutput/gwas/gwasqc
+```
 
 Upon execution, the input bfiles undergo population structure analysis and PCA, resulting in the generation of `pca.eigenval` and `pca.eigenvec` files containing PCA eigenvalues and eigenvectors. Additionally, it produces diagrams illustrating the principal component analysis (`pca.png`) and population structure (`admixture.png`), all stored in the `gwaswaOutput/gwas/pca` directory.
 
@@ -309,7 +342,9 @@ To conduct kinship analysis, use the following command with its associated param
 
 -   `--cleanbfiledir <path>`: Directory containing the bfiles.
 
-`gwaswa --step kinship --cleanbfiledir gwaswaOutput/gwas/gwasqc`
+```
+gwaswa --step kinship --cleanbfiledir gwaswaOutput/gwas/gwasqc
+```
 
 Upon execution, the input bfiles undergo kinship analysis, resulting in the generation of `kinship.txt` and the `kinship.png` diagram. These files are stored in the `gwaswaOutput/gwas/kinship` directory.
 
@@ -329,13 +364,18 @@ To conduct association analysis, use the following command with its associated p
 
     -   `--lm`: Generalized linear model.
 
-        `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lm`
+        ```
+        gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lm
+        ```
 
     -   `--lmm`: Mixed linear model.
-
+    
         -   `--pcafile <filename>`: Optionally provide the PCA result file as a covariate.
         -   `--kinshipfile <filename>`: Optionally provide the kinship result file as a covariate. If not provided, it will be automatically generated.
-            `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec`
+            
+            ```
+            gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec
+            ```
 
 Upon execution, the association analysis generates a `result.assoc.txt` file containing information for each variant site. Additionally, it creates graphical representations of the analysis, including a Manhattan plot and a QQ plot. These files are stored in the `gwaswaOutput/gwas/association` directory.
 
@@ -354,7 +394,9 @@ To select significant variants, use the following command with its associated pa
 -   `--assocfile`: Association analysis result file.
 -   `--pvaluelimit <str>`: The default value is 1e-5. Filters out SNPs greater than the specified p-value limit.
 
-`gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5`
+```
+gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5
+```
 
 Executing this command generates a `snps.txt` file that filters out significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
 
@@ -368,7 +410,9 @@ For variant impact assessment, utilize the following parameters:
 
 `--snpfile <filename>`: Input association analysis results file.
 
-`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf`
+```
+gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf
+```
 
 Upon execution, the input variation is evaluated, generating an 'assessment_Summary.html' file. This file is stored in the `gwaswaOutput/assessment` directory.
 
