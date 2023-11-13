@@ -162,8 +162,6 @@ For downloading and indexing the reference genome, you can use the following com
     ```
     gwaswa --step downloadref --refgenome example/ref.fa.gz
     ```
-    
-    
 
 The reference genome sequence is downloaded and stored in the `gwaswaOutput/wgs/ref` directory, and the reference genome index file is stored in the same directory as the reference genome.
 
@@ -239,10 +237,10 @@ For conducting VCF quality control, use the following command along with its ass
 
 -   `--vcfdir <filename>`: Specifies the VCF file containing variant genotype information.
 -   Hard filtering for SNPs:
-    -   `--snpQUAL <float>`: The default value is 30.0. This parameter represents the variant quality value, which measures the reliability of the variation based on the QUAL field in the VCF.
+    -   `--snpQUAL <float>`: The default value is 30.0. This parameter represents the variant quality value, which measures the reliability of the variant based on the QUAL field in the VCF.
     -   `--snpQD <float>`: The default value is 2.0. QD (SNPQualByDepth) is the ratio of the variant quality value divided by the depth of coverage.
     -   `--snpMQ <float>`: The default value is 40.0. MQ (RMSMappingQuality) describes the degree of dispersion of the quality value of the alignment, rather than just the average value.
-    -   `--snpFS <float>`: The default value is 60.0. FS (FisherStrand) is derived from the p-value of Fisher's test and describes strand specificity for reads containing variations and reads containing reference sequence bases during sequencing or alignment.
+    -   `--snpFS <float>`: The default value is 60.0. FS (FisherStrand) is derived from the p-value of Fisher's test and describes strand specificity for reads containing variants and reads containing reference sequence bases during sequencing or alignment.
     -   `--snpSOR <float>`: The default value is 3.0. SOR (StrandOddsRatio) is calculated using the symmetric odds ratio test, corrected for strand specificity.
     -   `--snpMQRankSum <float>`: The default value is -12.5. The MappingQualityRankSumTest is used to assess whether the mapping qualities of the reads supporting the reference allele and the alternate allele are significantly different for SNP positions.
     -   `--snpReadPosRankSum <float>`: The default value is -8.0. The Read Position Rank Sum Test for SNPs evaluates the differences in the position of the reads supporting the reference versus the alternate allele.
@@ -392,10 +390,10 @@ QQ plot.
 To select significant variants, use the following command with its associated parameters:
 
 -   `--assocfile`: Association analysis result file.
--   `--pvaluelimit <str>`: The default value is 1e-5. Filters out SNPs greater than the specified p-value limit.
+-   `--pvaluelimit <str>`: The default value is 1e-7. Filters out SNPs greater than the specified p-value limit.
 
 ```
-gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5
+gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-7
 ```
 
 Executing this command generates a `snps.txt` file that filters out significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
@@ -408,13 +406,13 @@ For variant impact assessment, utilize the following parameters:
 
 `--species <str>`: Target species name for the analysis.
 
-`--snpfile <filename>`: Input association analysis results file.
+`--snpfile <filename>`: Input a VCF file containing variants
 
 ```
 gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf
 ```
 
-Upon execution, the input variation is evaluated, generating an 'assessment_Summary.html' file. This file is stored in the `gwaswaOutput/assessment` directory.
+Upon execution, the input variants are evaluated, generating an `assessment_Summary.html` file. This file is stored in the `gwaswaOutput/assessment` directory.
 
 # Quick Start
 
@@ -544,7 +542,7 @@ Using the example of a human non-coding variant `rs11644125`.
 
 `gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf --output assess`
 
-Evaluated variation impact results are stored in the `assess/gwaswaOutput/gwas/assessment` directory.
+Evaluated variant impact results are stored in the `assess/gwaswaOutput/gwas/assessment` directory.
 
 
 

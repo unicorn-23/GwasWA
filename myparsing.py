@@ -405,7 +405,7 @@ def getArgs(argv=None):
 
 #################### 10、  vcf质控 ####################
     parser.add_argument(
-        "--vcfdir", metavar="<filename>", type=str,
+        "--vcffile", metavar="<filename>", type=str,
         help='''vcf.gz文件目录'''
     )
     parser.add_argument(
@@ -827,8 +827,8 @@ class Parser:
         return self.args.gvcfdir
 #################### 10、  vcf质控 ####################
 
-    def get_vcfdir(self):
-        return self.args.vcfdir
+    def get_vcffile(self):
+        return self.args.vcffile
     def get_snpQUAL(self):
         return self.args.snpQUAL
     def get_snpQD(self):

@@ -41,8 +41,8 @@ if processedbamdir:
 gvcfdir= P.get_gvcfdir()
 if gvcfdir:
     flag = 8
-vcfdir = P.get_vcfdir()
-if vcfdir:
+vcffile = P.get_vcffile()
+if vcffile:
     flag = 9
 
 
@@ -164,7 +164,7 @@ if step in ["vcfqc", "wgsall"]:
         vcf_output_path = get_wgs_output_path(P, "vcf")
         vcf_file = os.path.join(vcf_output_path, "genotype.vcf.gz")
     if flag == 9:
-        vcf_file = vcfdir
+        vcf_file = vcffile
     do_vcf_qc(P, vcf_file)
 ########################################################################################################################
 ########################################################################################################################
