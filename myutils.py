@@ -2484,7 +2484,7 @@ def enformer_predict(P, file_path):
     f.close()
 
     snp_tracks={}
-    for chrm, ps, rs, ref, alt, _, _, _ in variant_list:
+    for chrm, ps, rs, ref, alt in variant_list:
         if chrm.startswith("ch"):
             chrom = chrm
         else:

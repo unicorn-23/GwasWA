@@ -65,7 +65,7 @@ To install GwasWA, follow these steps:
 `pip install -r requirements.txt`
 
 
-To access GwasWA globally, add the GwasWA folder to the environment variable.
+To access GwasWA globally, add the GwasWA folder to the environment variable:
 
 `export PATH="/path/to/gwaswa:$PATH"`
 
@@ -85,7 +85,7 @@ Append variable settings to the end of the file `~/.bashrc`. Execute the followi
 For downloading sequence data, utilize the following commands and their respective parameters:
 
 -   `--sra <str>`: Download SRA files based on specified SRA accessions. Separate multiple accessions by spaces.
--   `--sralist <filename>`: Download SRA files using a list in a file (`srr_list.txt`). Each line in the file represents an SRA accession.
+-   `--sralist <filename>`: Download SRA files using a list in a `srr_list.txt` file. Each line in the file represents a SRA accession.
 -   `--nThrds <int>`: Number of simultaneous downloads to be initiated.
 
 ```
@@ -145,13 +145,13 @@ The quality evaluation report, generated using `fastqc` and `multiqc`, will be s
 
 For downloading and indexing the reference genome, you can use the following commands with their respective parameters:
 
--   `--accession <str>`: Use this to provide an NCBI Reference sequence accession if you don't have a local reference genome file available. This will download the reference genome sequence.
+-   `--accession <str>`: Use this to provide a NCBI Reference sequence accession if you don't have a local reference genome file available. This will download the reference genome sequence.
 
     ```
     gwaswa --step downloadref --refaccession GCF_000001735.4
     ```
     
--   `--taxon <str>`: If you don't have a local reference genome file, you can provide an NCBI Taxonomy ID or taxonomy name to download the reference genome sequence.
+-   `--taxon <str>`: If you don't have a local reference genome file, you can provide a NCBI Taxonomy ID or taxonomy name to download the reference genome sequence.
 
 -   ```
     gwaswa --step downloadref --taxon 3702
@@ -228,14 +228,14 @@ The joint genotyping process involves several steps:
 
 1.  Dividing gVCF Files by Chromosome: Initially, each sample's gVCF file in the input directory is split by chromosome and stored in the `gwaswaOutput/wgs/gvcf_chr` directory.
 2.  Merging Samples by Chromosome: Next, all samples are merged by chromosome, generating `chrX_g.vcf` and its index file in the `gwaswaOutput/wgs/vcf` directory.
-3.  Re-comparison of Chromosomal Files: Each `chrX_g.vcf` file is re-compared to obtain the `chrX_vcf` file.
+3.  Re-alignment of reference genome file: Each `chrX_g.vcf` file is re-aligned to obtain the `chrX_vcf` file.
 4.  Final Merging for Genotyping: The `chrX_vcf` files are then merged to generate `genotype.vcf` and its index files, stored in the `gwaswaOutput/wgs/vcf` directory.
 
 ## VCF quality control, `--step vcfqc`
 
 For conducting VCF quality control, use the following command along with its associated parameters:
 
--   `--vcfdir <filename>`: Specifies the VCF file containing variant genotype information.
+-   `--vcffile <filename>`: Specifies the VCF file containing variant genotype information.
 -   Hard filtering for SNPs:
     -   `--snpQUAL <float>`: The default value is 30.0. This parameter represents the variant quality value, which measures the reliability of the variant based on the QUAL field in the VCF.
     -   `--snpQD <float>`: The default value is 2.0. QD (SNPQualByDepth) is the ratio of the variant quality value divided by the depth of coverage.
@@ -253,7 +253,7 @@ For conducting VCF quality control, use the following command along with its ass
     -   `--indelReadPosRankSum <float>`: The default value is -8.0.
 
 ```
-gwaswa --step vcfqc --vcfdir gwaswaOutput/wgs/vcf/genotype.vcf --refgenome gwaswaOutput/wgs/ref/ref.fa
+gwaswa --step vcfqc --vcffile gwaswaOutput/wgs/vcf/genotype.vcf --refgenome gwaswaOutput/wgs/ref/ref.fa
 ```
 
 The `genotype.vcf` file undergoes quality control, generating `genotype_filter.vcf` and its index file, which are stored in the `gwaswaOutput/wgs/vcf` directory.
@@ -285,7 +285,7 @@ For converting VCF to bfiles, utilize the following command with its associated 
 gwaswa --step transvcf --genotypefile gwaswaOutput/gwas/transvcf/genotype.vcf.gz --phenotypefile pheno.txt
 ```
 
-This command executes the conversion process, generating bfiles stored in the `part2/transvcf` directory. The bfiles include BIM, FAM, and BED files, while the phenotype file is added to the FAM file.
+This command executes the conversion process, generating bfiles stored in the `gwaswaOutput/gwas/transvcf` directory. The bfiles include BIM, FAM, and BED files, while the phenotype file is added to the FAM file.
 
 ## GWAS quality control, `--step gwasqc`
 
@@ -302,7 +302,7 @@ For GWAS quality control, use the following command with its associated paramete
 -   `--indepPairwise <str>`: Applied for LD-based SNP pruning using pairwise LD calculation. Specifying the window size, step, and paired r2 threshold.
 -   `--indepPairphase <str>`: This parameter is also used for LD-based SNP pruning, but it specifically considers phased haplotype data.
 -   `--heterozygosity <float>`: The default value is 3. Exclude individuals with high or low heterozygosity.
--   `--checksex`: check gender differences.
+-   `--checksex`: Check gender differences.
 -   `--rmproblemsex`: Deletes individuals with problematic gender assignments.
 -   `--imputesex`: Imputes gender based on genotype information.
 
@@ -404,12 +404,12 @@ Executing this command generates a `snps.txt` file that filters out significantl
 
 For variant impact assessment, utilize the following parameters:
 
+`--snpfile <filename>`: Input a VCF file containing variants. Each line in the file represents a variant, specifying the chromosome number, position, variant name, reference allele, and alternative allele. For instance, `16 57025062 rs11644125 C T`.
+
 `--species <str>`: Target species name for the analysis.
 
-`--snpfile <filename>`: Input a VCF file containing variants
-
 ```
-gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf
+gwaswa --step assess --species homo_sapiens --snpfile example.vcf
 ```
 
 Upon execution, the input variants are evaluated, generating an `assessment_Summary.html` file. This file is stored in the `gwaswaOutput/assessment` directory.
@@ -424,31 +424,31 @@ This guide offers a systematic approach to processing WGS data using E.coli data
 
 `gwaswa --step downloadsra --sra SRR1770413 --output coli`
 
-The `SRR1770413.sra` file will be stored in the path `coli/gwaswaOutput/wgs/sra`.
+The `SRR1770413.sra` file will be stored in the `coli/gwaswaOutput/wgs/sra` directory.
 
 ### Convert SRA to FASTQ, `--step sratofastq`
 
 `gwaswa --step sratofastq --sradir coli/gwaswaOutput/wgs/sra --output coli`
 
-The converted files will be stored in the compressed format in `coli/gwaswaOutput/wgs/raw`.
+The converted files will be stored in the compressed format in the `coli/gwaswaOutput/wgs/raw` directory.
 
 ### FASTQ quality control, `--step readsqc`
 
 `gwaswa --step readsqc --rawfastqdir coli/gwaswaOutput/wgs/raw --output coli`
 
-The quality-controlled FASTQ files will be stored in `coli/gwaswaOutput/wgs/clean` in compressed `.fq.gz` format.
+The quality-controlled FASTQ files will be stored in the `coli/gwaswaOutput/wgs/clean` directory in compressed `.fq.gz` format.
 
 ### Quality evaluation, `--step qualityevaluation`
 
 `gwaswa --step qualityevaluation --fastqdir coli/gwaswaOutput/wgs/clean --output coli`
 
-The quality evaluation results will be saved in `coli/gwaswaOutput/wgs/qualityEvaluation`.
+The quality evaluation results will be saved in the `coli/gwaswaOutput/wgs/qualityEvaluation` directory.
 
 ### Download & index reference genome, `--step downloadref`
 
 `gwaswa --step downloadref --accession GCF_000005845.2 --output coli`
 
-The reference genome and its index will be stored in `coli/gwaswaOutput/wgs/ref`.
+The reference genome and its index will be stored in the `coli/gwaswaOutput/wgs/ref` directory.
 
 ### Alignment of reference genome, `--step align`
 
@@ -476,7 +476,7 @@ The resulting `genotype.vcf` and its index file are stored in the `coli/gwaswaOu
 
 ### VCF quality control, `--step vcfqc`
 
-`gwaswa --step vcfqc --vcfdir coli/gwaswaOutput/wgs/vcf/genotype.vcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
+`gwaswa --step vcfqc --vcffile coli/gwaswaOutput/wgs/vcf/genotype.vcf --refgenome coli/gwaswaOutput/wgs/ref/ref.fa --output coli`
 
 The resulting `genotype_filter.vcf` and its index file are stored in the `coli/gwaswaOutput/wgs/vcf` directory.
 
@@ -540,7 +540,7 @@ Using the example of a human non-coding variant `rs11644125`.
 
 ### Variant effect assessment, `--step assess`
 
-`gwaswa --step assess --species homo_sapiens --snpfile example/rs11644125.vcf --output assess`
+`gwaswa --step assess --species homo_sapiens --snpfile gwaswa/example/rs11644125.vcf --output assess`
 
 Evaluated variant impact results are stored in the `assess/gwaswaOutput/gwas/assessment` directory.
 
