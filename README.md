@@ -2,7 +2,7 @@
 
 GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assessment
 
-![Figure 1](image/Figure 1.png)
+![](image/Figure 1.png)
 
 ## Contents
 
