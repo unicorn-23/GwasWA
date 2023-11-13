@@ -2,13 +2,11 @@
 
 GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assessment
 
-![Figure 1](README.assets/Figure 1.png)
+![Figure 1](image/Figure 1.png)
 
 ## Contents
 
 
-- [GwasWA Manual](#gwaswa-manual)
-  - [Contents](#contents)
 - [GwasWA Installation Guide](#gwaswa-installation-guide)
 - [General Parameters](#general-parameters)
 - [WGS Data Processing](#wgs-data-processing)
@@ -197,6 +195,8 @@ Upon detecting the variants in the BAM files within the input directory, the res
 
 ## Jointgenotype, `--step jointgenotype`
 
+Forjointgenotype, use the following command along with its associated parameters:
+
 -   `--gvcfdir <path>`: Directory containing each gVCF file.
 -   `--refgenome <filename>`: Local reference genome file.
 -   `--nThrds <int>`: Number of gVCF files split by chromosome simultaneously.
@@ -239,7 +239,7 @@ The `genotype.vcf` file undergoes quality control, generating `genotype_filter.v
 
 ## Genotype imputation, `--step impute`
 
-To perform genotype imputation, use the following command with its associated parameters:
+To perform genotype imputation, utilize the following command with its associated parameters:
 
 -   `--genotypefile <filename>`: The VCF file containing variant genotype information.
 -   `--nMem <str>`: Maximum memory footprint.

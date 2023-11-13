@@ -187,15 +187,15 @@ def get_assessment_output_path(P, part_name):
 #################### 1、  SRA数据下载 ####################
 def do_download_sra(P, download_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for srr in download_list:
         t = threading.Thread(target=download_content, args=(P, srr))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -226,15 +226,15 @@ def check_sra(P):
     file_list = os.listdir(sra_output_path)
     sra_list = []
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for file_ in file_list:
         t = threading.Thread(target=check_content, args=(P, file_))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -283,15 +283,15 @@ def get_sra_file_path(sra_list_path):
 
 def do_sra_to_fastq(P, sra_file_path_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for sra in sra_file_path_list:
         t = threading.Thread(target=fastq_content, args=(P, sra))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -324,7 +324,6 @@ def zip_fastq(P):
         raw_path)
     tmp.extend(single_fastq_path_list)
     count = 0
-    core = P.get_core()
     thread_list = []
     nThrds = P.get_nThrds()
     for t in paired_fastq_path_list:
@@ -343,9 +342,9 @@ def zip_fastq(P):
                 zip_cmd, f"zip .fastq file {fastq}"))
             thread_list.append(t)
             t.start()
-            if count < core:
+            if count < nThrds:
                 count += 1
-            if count == core:
+            if count == nThrds:
                 for t in thread_list:
                     t.join()
                 count = 0
@@ -356,15 +355,15 @@ def zip_fastq(P):
 
 def do_qc(P, single_fastq_file_path_list, paired_fastq_file_path_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for fastq_file in single_fastq_file_path_list:
         t = threading.Thread(target=qc_single_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -373,9 +372,9 @@ def do_qc(P, single_fastq_file_path_list, paired_fastq_file_path_list):
         t = threading.Thread(target=qc_paired_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -559,7 +558,7 @@ def get_ref(P):
 
 def do_align_bwa(P, single_fastq_file_path_list, paired_fastq_file_path_list):
     alignalgorithm = P.get_alignalgorithm()
-    if alignalgorithm == "aln":
+    if alignalgorithm == "backtrack":
         aln(P, single_fastq_file_path_list, paired_fastq_file_path_list)
     elif alignalgorithm == "mem":
         mem(P, single_fastq_file_path_list, paired_fastq_file_path_list)
@@ -569,15 +568,15 @@ def do_align_bwa(P, single_fastq_file_path_list, paired_fastq_file_path_list):
 
 def mem(P, single_fastq_file_path_list, paired_fastq_file_path_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for fastq_file in single_fastq_file_path_list:
         t = threading.Thread(target=mem_single_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -586,9 +585,9 @@ def mem(P, single_fastq_file_path_list, paired_fastq_file_path_list):
         t = threading.Thread(target=mem_paired_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -681,16 +680,16 @@ def make_mem_cmd(P):
 
 def aln(P, single_fastq_file_path_list, paired_fastq_file_path_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
 
     for fastq_file in single_fastq_file_path_list:
         t = threading.Thread(target=aln_single_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -699,9 +698,9 @@ def aln(P, single_fastq_file_path_list, paired_fastq_file_path_list):
         t = threading.Thread(target=aln_paired_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -834,15 +833,15 @@ def make_sampe_cmd(P):
 
 def bwasw(P, single_fastq_file_path_list, paired_fastq_file_path_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     for fastq_file in single_fastq_file_path_list:
         t = threading.Thread(target=bwasw_single_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -851,9 +850,9 @@ def bwasw(P, single_fastq_file_path_list, paired_fastq_file_path_list):
         t = threading.Thread(target=bwasw_paired_content, args=(P, fastq_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -961,7 +960,7 @@ def sam_to_bam(P, output_sam_file, output_bam_file):
 
 def sort_bam(P, bam_file_path):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     bam_list = os.listdir(bam_file_path)
     for bam_file in bam_list:
@@ -969,9 +968,9 @@ def sort_bam(P, bam_file_path):
                              args=(P, bam_file, bam_file_path))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -1003,7 +1002,7 @@ def sort_content(P, bam_file, bam_file_path):
 def mark_pcr_repeat_picard(P):
     if P.get_delPCR():
         count = 0
-        core = P.get_core()
+        nThrds = P.get_nThrds()
         thread_list = []
 
         processed_output_path = get_wgs_output_path(P, "processed")
@@ -1017,9 +1016,9 @@ def mark_pcr_repeat_picard(P):
             t = threading.Thread(target=del_pcr_content, args=(P, bam_file))
             thread_list.append(t)
             t.start()
-            if count < core:
+            if count < nThrds:
                 count += 1
-            if count == core:
+            if count == nThrds:
                 for t in thread_list:
                     t.join()
                 count = 0
@@ -1049,7 +1048,7 @@ def del_pcr_content(P, bam_file):
 
 def index_for_bam(P):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
 
     processed_output_path = get_wgs_output_path(P, "processed")
@@ -1066,9 +1065,9 @@ def index_for_bam(P):
         t = threading.Thread(target=index_bam_content, args=(P, bam_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -1175,7 +1174,7 @@ def get_info_from_fasta(fasta_file):
 
 def do_gvcf(P, bam_file_path):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
 
     file_list = os.listdir(bam_file_path)
@@ -1194,9 +1193,9 @@ def do_gvcf(P, bam_file_path):
                              args=(P, bam_file, bam_file_path))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -1271,7 +1270,7 @@ def do_chr_gvcf_merge(P,file_dict_by_group):
     vcf_output_path = get_wgs_output_path(P, "vcf")
 
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     chr_file_list=[]
     for key in file_dict_by_group.keys():
@@ -1281,9 +1280,9 @@ def do_chr_gvcf_merge(P,file_dict_by_group):
         t = threading.Thread(target=chr_gvcf_merge_content,args=(P, output_file,file_dict_by_group[key]))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0
@@ -1375,7 +1374,7 @@ def chr_gvcf_merge_content(P,output_file,file_list):
 
 def do_joint_genotype(P,chr_file_list):
     count = 0
-    core = P.get_core()
+    nThrds = P.get_nThrds()
     thread_list = []
     done_chr_file_list=[]
     for chr_file in chr_file_list:    
@@ -1384,9 +1383,9 @@ def do_joint_genotype(P,chr_file_list):
         t = threading.Thread(target=joint_content,args=(P, chr_file,output_file))
         thread_list.append(t)
         t.start()
-        if count < core:
+        if count < nThrds:
             count += 1
-        if count == core:
+        if count == nThrds:
             for t in thread_list:
                 t.join()
             count = 0

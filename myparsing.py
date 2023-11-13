@@ -30,10 +30,6 @@ def getArgs(argv=None):
         help="是否存储中间文件"
     )
     parser.add_argument(
-        "--core", type=int,default=10,
-        help="同时运行多少进程"
-    )
-    parser.add_argument(
         "--nThrds", metavar="<str>", type=str,
         help='''多线程数量'''
     )
@@ -189,16 +185,11 @@ def getArgs(argv=None):
 #################### 6、  比对参考基因组-bwa ####################
     parser.add_argument(
         "-afa","--alignalgorithm", metavar="<str>", type=str, default="mem",
-        choices=["mem","bwasw","aln"],
+        choices=["mem","bwasw","backtrack"],
         help='''Algorithm for alignment
         mem(首推):在reads长度在70bp-1Mbp范围时,推荐本算法。支持long-reads,split alignment。
         bwasw:在reads具有频繁的gap时,比对更敏感,推荐本算法。reads长度一般为70bp-1Mbp,支持long-reads,split alignment。
         backtrack:reads长度<70bp时,推荐本算法,建议输入reads长度 < 100bp。
-        backtrack包含:
-            aln: aln 命令将单独的 reads 比对到参考序列
-            samse:再使用 samse 生成 sam 文件。单端测序时使用
-            sampe:再使用 sampe 生成 sam 文件。双端测序时使用
-            aln将自动判断
         Default: %(default)s
         Available metrics: %(choices)s
         '''
@@ -692,8 +683,6 @@ class Parser:
         return self.args.output
     def get_nosave(self):
         return self.args.nosave
-    def get_core(self):
-        return self.args.core
     def get_nThrds(self):
         return self.args.nThrds
     def get_nMem(self):
