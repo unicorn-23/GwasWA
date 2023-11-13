@@ -195,7 +195,7 @@ Upon detecting the variants in the BAM files within the input directory, the res
 
 ## Jointgenotype, `--step jointgenotype`
 
-Forjointgenotype, use the following command along with its associated parameters:
+For jointgenotype, use the following command along with its associated parameters:
 
 -   `--gvcfdir <path>`: Directory containing each gVCF file.
 -   `--refgenome <filename>`: Local reference genome file.
