@@ -39,7 +39,7 @@ GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assess
     - [Quality evaluation, `--step qualityevaluation`](#quality-evaluation---step-qualityevaluation-1)
     - [Download \& index reference genome, `--step downloadref`](#download--index-reference-genome---step-downloadref-1)
     - [Alignment of reference genome, `--step align`](#alignment-of-reference-genome---step-align)
-    - [Process BAM files, `--step dealbam`](#process-bam-files---step-dealbam)
+    - [BAM files Processing, `--step dealbam`](#bam-files-processing---step-dealbam-1)
     - [Variant detection, `--step detect`](#variant-detection---step-detect-1)
     - [Jointgenotype, `--step jointgenotype`](#jointgenotype---step-jointgenotype-1)
     - [VCF quality control, `--step vcfqc`](#vcf-quality-control---step-vcfqc-1)
@@ -456,11 +456,11 @@ The reference genome and its index will be stored in the `coli/gwaswaOutput/wgs/
 
 The alignment results will be stored in the `coli/gwaswaOutput/wgs/align` directory.
 
-### Process BAM files, `--step dealbam`
+### BAM files Processing, `--step dealbam`
 
 `gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-The resulting BAM files are stored in the `coli/gwaswaOutput/wgs/processed` directory.
+The resulting processed BAM files are stored in the `coli/gwaswaOutput/wgs/processed` directory.
 
 ### Variant detection, `--step detect`
 
