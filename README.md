@@ -76,7 +76,7 @@ Append variable settings to the end of the file `~/.bashrc`. Execute the followi
 # General Parameters
 
 -   `--version`: Retrieve the current version of the tool.
--   `-o, --output <path>`: Specify the directory for the output file. This option allows you to set the directory path where the output file will be stored. If not specified, the file will be saved in the current directory by default.
+-   `-o, --output <path>`: The default value is current directory. Specify the directory for the output file.
 -   `--nosave`: Prevent the tool from saving intermediate files.
 # WGS Data Processing
 
@@ -84,7 +84,7 @@ Append variable settings to the end of the file `~/.bashrc`. Execute the followi
 
 For downloading sequence data, utilize the following commands and their respective parameters:
 
--   `--sra <str>`: Download .sra files based on specified SRA accessions. Separate multiple accessions by spaces.
+-   `--sra <str>`: Download SRA files based on specified SRA accessions. Separate multiple accessions by spaces.
 -   `--sralist <filename>`: Download SRA files using a list in a file (`srr_list.txt`). Each line in the file represents an SRA accession.
 -   `--nThrds <int>`: Number of simultaneous downloads to be initiated.
 
@@ -92,36 +92,36 @@ For downloading sequence data, utilize the following commands and their respecti
 
 `gwaswa --step downloadsra --sralist srr_list.txt`
 
-The downloaded `.sra` files associated with the specified SRA accession(s) will be stored in the `gwaswaOutput/wgs/sra` directory. In case of download or integrity verification failures, the file `err_sra_log.txt` will be generated in the `gwaswaOutput/wgs/sra` directory to track failed SRA accessions.
+The downloaded SRA files associated with the specified SRA accession(s) will be stored in the `gwaswaOutput/wgs/sra` directory. In case of download or integrity verification failures, the file `err_sra_log.txt` will be generated in the `gwaswaOutput/wgs/sra` directory to track failed SRA accessions.
 
 ## Convert SRA to FASTQ, `--step sratofastq`
 
 To convert SRA files to FASTQ format, employ the following command with the respective parameters:
 
--   `--sradir <path>`: Directory containing the `.sra` files to be converted into FASTQ format.
+-   `--sradir <path>`: Directory containing the SRA files to be converted into FASTQ format.
 -   `--nThrds <int>`: Number of simultaneous conversions into FASTQ format, including compression into `.gz` files.
 
 `gwaswa --step sratofastq --sradir gwaswaOutput/wgs/sra `
 
-Once the conversion of the input `.sra` files in the designated directory is completed, the resulting `.fastq` files will be stored in the `gwaswaOutput/wgs/raw` directory in `.gz` format.
+Once the conversion of the input SRA files in the designated directory is completed, the resulting FASTQ files will be stored in the `gwaswaOutput/wgs/raw` directory in compressed format.
 
 ## FASTQ quality control, `--step readsqc`
 
 To perform quality control on FASTQ files, utilize the following command with the associated parameters:
 
 -   `--rawfastqdir <path>`: Directory containing FASTQ files for quality control.
--   `--quality <int>`: Set the Phred quality threshold. The default value is 20. Low-quality bases at the 3' end are trimmed based on this threshold.
+-   `--quality <int>`: The default value is 20. Set the Phred quality threshold, low-quality bases at the 3' end are trimmed based on this threshold.
 -   `--phred <str>`: Choose the Illumina version for quality scoring. Options:
     -   `phred33`: Default. For Illumina 1.9+ using ASCII 33 quality scores.
     -   `phred64`: For Illumina 1.5 using ASCII 64 quality scores.
--   `--length <int>`: Sets a length threshold. Reads below this threshold after quality control will be rejected. The default is 20.
+-   `--length <int>`: The default value is 20. Sets a length threshold. Reads below this threshold after quality control will be rejected.
 -   `--stringency <int>`: The default value is 1. Allows a certain number of bases of the linker sequence to remain at the end.
 -   `--error <float>`: The default value is 0.1. Specifies the maximum allowable error rate.
 -   `--nThrds <int>`: Number of concurrent quality control processes for FASTQ files, including compression into `.fq.gz` format.
 
 `gwaswa --step readsqc --rawfastqdir gwaswaOutput/wgs/raw`
 
-Once the quality control process is completed, the cleaned FASTQ files will be stored in the `gwaswaOutput/wgs/clean` directory in `.fq.gz` compressed format.
+Once the quality control process is completed, the cleaned FASTQ files will be stored in the `gwaswaOutput/wgs/clean` directory.
 
 ## Quality evaluation, `--step qualityevaluation`
 
@@ -166,7 +166,7 @@ To align the reference genome, you can use the following command with its associ
 
 `gwaswa --step align --cleanfastqdir gwaswaOutput/wgs/clean --refgenome gwaswaOutput/wgs/ref/ref.fa `
 
-Upon aligning the reference genome with the FASTQ file in the input directory, the resulting `sample.bam` file will be generated in the `gwaswaOutput/wgs/align` directory.
+Upon aligning the reference genome with the FASTQ file in the input directory, the resulting BAM files will be generated in the `gwaswaOutput/wgs/align` directory.
 
 ## BAM files processing, `--step dealbam`
 
@@ -205,7 +205,7 @@ For jointgenotype, use the following command along with its associated parameter
 
 The joint genotyping process involves several steps:
 
-1.  Dividing gVCF Files by Chromosome: Initially, each sample's `g.vcf` file in the input directory is split by chromosome and stored in the `gwaswaOutput/wgs/gvcf_chr` directory.
+1.  Dividing gVCF Files by Chromosome: Initially, each sample's gVCF file in the input directory is split by chromosome and stored in the `gwaswaOutput/wgs/gvcf_chr` directory.
 2.  Merging Samples by Chromosome: Next, all samples are merged by chromosome, generating `chrX_g.vcf` and its index file in the `gwaswaOutput/wgs/vcf` directory.
 3.  Re-comparison of Chromosomal Files: Each `chrX_g.vcf` file is re-compared to obtain the `chrX_vcf` file.
 4.  Final Merging for Genotyping: The `chrX_vcf` files are then merged to generate `genotype.vcf` and its index files, stored in the `gwaswaOutput/wgs/vcf` directory.
@@ -258,7 +258,7 @@ For converting VCF to bfiles, utilize the following command with its associated 
 
 `gwaswa --step transvcf --genotypefile gwaswaOutput/gwas/transvcf/genotype.vcf.gz --phenotypefile pheno.txt`
 
-This command executes the conversion process, generating bfiles stored in the `part2/transvcf` directory. The bfiles include `.bim`, `.fam`, and `.bed` files, while the phenotype file is added to the `.fam` file.
+This command executes the conversion process, generating bfiles stored in the `part2/transvcf` directory. The bfiles include BIM, FAM, and BED files, while the phenotype file is added to the FAM file.
 
 ## GWAS quality control, `--step gwasqc`
 
@@ -266,15 +266,15 @@ For GWAS quality control, use the following command with its associated paramete
 
 -   `--bfiledir <path>`: Directory containing the bfiles.
 -   `--atgc`: Retains only ATGC alleles.
--   `--snpmiss <float>`: The default is 0.2. Excludes SNPs with high missingness among subjects.
--   `--indmiss <float>`: The default is 0.2. Excludes individuals with a high rate of genotype deletion.
--   `--maf <float>`: The default is 0.05. Sets the minimum allele frequency, filters out SNPs with low MAF.
--   `--hwe <str>`: The default is 1e-6. Filters out SNPs deviating from Hardy-Weinberg equilibrium in the control group.
--   `--hweall <str>`: The default is 1e-6. Filters out all sample deviations from Hardy-Weinberg equilibrium.
+-   `--snpmiss <float>`: The default value is 0.2. Excludes SNPs with high missingness among subjects.
+-   `--indmiss <float>`: The default value is 0.2. Excludes individuals with a high rate of genotype deletion.
+-   `--maf <float>`: The default value is 0.05. Sets the minimum allele frequency, and filters out SNPs with low MAF.
+-   `--hwe <str>`: The default value is 1e-6. Filters out SNPs deviating from Hardy-Weinberg equilibrium in the control group.
+-   `--hweall <str>`: The default value is 1e-6. Filters out all sample deviations from Hardy-Weinberg equilibrium.
 -   `--indep <str>`: Utilized for Linkage Disequilibrium (LD) pruning, specifying the window size, step, and variance inflation factor. For instance, `--indep 50 5 2` would mean a window size of 50 SNPs, a step of 5 SNPs, and a variance inflation factor of 2.
 -   `--indepPairwise <str>`: Applied for LD-based SNP pruning using pairwise LD calculation. Specifying the window size, step, and paired r2 threshold.
 -   `--indepPairphase <str>`: This parameter is also used for LD-based SNP pruning, but it specifically considers phased haplotype data.
--   `--heterozygosity <float>`: The default is 3. Exclude individuals with high or low heterozygosity.
+-   `--heterozygosity <float>`: The default value is 3. Exclude individuals with high or low heterozygosity.
 -   `--checksex`: check gender differences.
 -   `--rmproblemsex`: Deletes individuals with problematic gender assignments.
 -   `--imputesex`: Imputes gender based on genotype information.
@@ -288,7 +288,7 @@ Upon executing this command, the bfiles in the input directory will undergo qual
 For conducting population structure analysis, use the following command with its associated parameters:
 
 -   `--cleanbfiledir <path>`: Directory containing the bfiles.
--   `--pcanum <int>`: The default is 6. The number of principal components for analysis.
+-   `--pcanum <int>`: The default value is 6. The number of principal components for analysis.
 -   `--groupnum <int>`: Number of populations for analysis. If not specified, it determines the group number with the lowest CV error among 2-20 groups.
 
 `gwaswa --step pca --groupnum 3 --cleanbfiledir gwaswaOutput/gwas/gwasqc`
@@ -337,7 +337,7 @@ To conduct association analysis, use the following command with its associated p
         -   `--kinshipfile <filename>`: Optionally provide the kinship result file as a covariate. If not provided, it will be automatically generated.
             `gwaswa --step association --cleanbfiledir gwaswaOutput/gwas/gwasqc --lmm --pcafile gwaswaOutput/gwas/pca/pca.eigenvec`
 
-Upon execution, the association analysis generates a `result.assoc.txt` file containing information for each variant site. Additionally, it creates graphical representations of the analysis, including a `man.png` Manhattan plot and a `qq.png` QQ plot. These files are stored in the `gwaswaOutput/gwas/association` directory.
+Upon execution, the association analysis generates a `result.assoc.txt` file containing information for each variant site. Additionally, it creates graphical representations of the analysis, including a Manhattan plot and a QQ plot. These files are stored in the `gwaswaOutput/gwas/association` directory.
 
 Manhattan plot.
 
@@ -352,7 +352,7 @@ QQ plot.
 To select significant variants, use the following command with its associated parameters:
 
 -   `--assocfile`: Association analysis result file.
--   `--pvaluelimit <str>`: Default is 1e-5. Filters out SNPs greater than the specified p-value limit.
+-   `--pvaluelimit <str>`: The default value is 1e-5. Filters out SNPs greater than the specified p-value limit.
 
 `gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-5`
 
@@ -418,7 +418,7 @@ The alignment results will be stored in the `coli/gwaswaOutput/wgs/align` direct
 
 `gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --output coli`
 
-The resulting `.bam` file is stored in the `coli/gwaswaOutput/wgs/processed` directory.
+The resulting BAM files are stored in the `coli/gwaswaOutput/wgs/processed` directory.
 
 ### Variant detection, `--step detect`
 
@@ -446,7 +446,7 @@ This section covers GWAS data processing and association analysis using Jiang K 
 
 `gwaswa --step transvcf --genotypefile gwaswa/example/genotype.vcf.gz --phenotypefile gwaswa/example/pheno.txt --output example`
 
-The output bfiles are stored in the `example/gwaswaOutput/gwas/transvcf` directory, including `.bim`, `.fam`, and `.bed` files.
+The output bfiles are stored in the `example/gwaswaOutput/gwas/transvcf` directory, including BIM, FAM, and BED files.
 
 ### GWAS quality control, `--step gwasqc`
 
