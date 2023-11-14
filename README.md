@@ -10,7 +10,7 @@ GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assess
 - [GwasWA Installation Guide](#gwaswa-installation-guide)
 - [General Parameters](#general-parameters)
 - [WGS Data Processing](#wgs-data-processing)
-  - [Download sequence data, `-- step downloadsra`](#download-sequence-data----step-downloadsra)
+  - [Download sequence data, `--step downloadsra`](#download-sequence-data---step-downloadsra)
   - [Convert SRA to FASTQ, `--step sratofastq`](#convert-sra-to-fastq---step-sratofastq)
   - [FASTQ quality control, `--step readsqc`](#fastq-quality-control---step-readsqc)
   - [Quality evaluation, `--step qualityevaluation`](#quality-evaluation---step-qualityevaluation)
@@ -80,7 +80,7 @@ Append variable settings to the end of the file `~/.bashrc`. Execute the followi
 -   `--nosave`: Prevent the tool from saving intermediate files.
 # WGS Data Processing
 
-## Download sequence data, `-- step downloadsra`
+## Download sequence data, `--step downloadsra`
 
 For downloading sequence data, utilize the following commands and their respective parameters:
 
@@ -157,7 +157,7 @@ For downloading and indexing the reference genome, you can use the following com
     gwaswa --step downloadref --taxon 3702
     ```
 
--   `--refgenome <filename>`: Use this parameter if you already have a local reference genome file available.
+-   `--refgenome <filename>`: Use this parameter to create an index if you already have a local reference genome file available.
 
     ```
     gwaswa --step downloadref --refgenome example/ref.fa.gz
@@ -169,7 +169,7 @@ The reference genome sequence is downloaded and stored in the `gwaswaOutput/wgs/
 
 To align the reference genome, you can use the following command with its associated parameters:
 
--   `--cleanfastqdir <path>`: Directory for storing each FASTQ file post quality control.
+-   `--cleanfastqdir <path>`: Directory for storing each FASTQ file after quality control.
 -   `--alignalgorithm <str>`: Choice of alignment algorithm.
     -   `mem`: Default. Recommended for read lengths in the range of 70bp-1Mbp.
     -   `bwasw`: More sensitive for reads with frequent gaps, suitable for reads typically 70bp-1Mbp in length.
