@@ -302,7 +302,7 @@ For GWAS quality control, use the following command with its associated paramete
 -   `--indepPairwise <str>`: Applied for LD-based SNP pruning using pairwise LD calculation. Specifying the window size, step, and paired r2 threshold.
 -   `--indepPairphase <str>`: This parameter is also used for LD-based SNP pruning, but it specifically considers phased haplotype data.
 -   `--heterozygosity <float>`: The default value is 3. Exclude individuals with high or low heterozygosity.
--   `--checksex`: Check gender differences.
+-   `--checksex`: Checks gender differences.
 -   `--rmproblemsex`: Deletes individuals with problematic gender assignments.
 -   `--imputesex`: Imputes gender based on genotype information.
 
