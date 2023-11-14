@@ -187,7 +187,7 @@ Upon aligning the reference genome with the FASTQ file in the input directory, t
 
 To BAM files processing, use the following command with its associated parameters:
 
--   `--bamdir <path>`: Directory containing each post-alignment BAM file.
+-   `--bamdir <path>`: Directory containing each BAM file.
 -   `--refgenome <filename>`: Local reference genome file.
 -   `--delPCR`: Removal of PCR duplicates.
 -   `--nThrds <int>`: Number of BAM files to be processed simultaneously.
