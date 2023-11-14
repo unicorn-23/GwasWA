@@ -227,9 +227,9 @@ gwaswa --step jointgenotype --gvcfdir gwaswaOutput/wgs/gvcf --refgenome gwaswaOu
 The joint genotyping process involves several steps:
 
 1.  Dividing gVCF Files by Chromosome: Initially, each sample's gVCF file in the input directory is split by chromosome and stored in the `gwaswaOutput/wgs/gvcf_chr` directory.
-2.  Merging Samples by Chromosome: Next, all samples are merged by chromosome, generating `chrX_g.vcf` and its index file in the `gwaswaOutput/wgs/vcf` directory.
-3.  Re-alignment of reference genome file: Each `chrX_g.vcf` file is re-aligned to obtain the `chrX_vcf` file.
-4.  Final Merging for Genotyping: The `chrX_vcf` files are then merged to generate `genotype.vcf` and its index files, stored in the `gwaswaOutput/wgs/vcf` directory.
+2.  Merging Samples by Chromosome: Next, all samples are merged by chromosome, generating `chrN_g.vcf` and its index file in the `gwaswaOutput/wgs/vcf` directory.
+3.  Re-alignment of reference genome file: Each `chrN_g.vcf` file is re-aligned to obtain the `chrN.vcf` file.
+4.  Final Merging for Genotyping: The `chrN.vcf` files are then merged to generate `genotype.vcf` and its index files, stored in the `gwaswaOutput/wgs/vcf` directory.
 
 ## VCF quality control, `--step vcfqc`
 
