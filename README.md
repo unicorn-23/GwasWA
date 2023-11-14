@@ -30,7 +30,7 @@ GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assess
   - [Association analysis, `--step association`](#association-analysis---step-association)
   - [Select significant variant, `--step selectsnp`](#select-significant-variant---step-selectsnp)
 - [Assessment of Variant Functional Effect](#assessment-of-variant-functional-effect)
-  - [Variant impact assessment, `--step assess`](#variant-impact-assessment---step-assess)
+  - [Variant effect assessment, `--step assess`](#variant-effect-assessment---step-assess)
 - [Quick Start](#quick-start)
   - [WGS data Processing](#wgs-data-processing-1)
     - [Download sequencing data, `--step downloadsra`](#download-sequencing-data---step-downloadsra)
@@ -51,7 +51,7 @@ GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assess
     - [Association analysis, `--step association`](#association-analysis---step-association-1)
     - [Select significant variants, `--step selectsnp`](#select-significant-variants---step-selectsnp)
   - [Assessment of variant effect](#assessment-of-variant-effect)
-    - [Variant effect assessment, `--step assess`](#variant-effect-assessment---step-assess)
+    - [Variant effect assessment, `--step assess`](#variant-effect-assessment---step-assess-1)
 
 
 # GwasWA Installation Guide
@@ -400,7 +400,7 @@ Executing this command generates a `snps.txt` file that filters out significantl
 
 # Assessment of Variant Functional Effect
 
-## Variant impact assessment, `--step assess`
+## Variant effect assessment, `--step assess`
 
 For variant impact assessment, utilize the following parameters:
 
