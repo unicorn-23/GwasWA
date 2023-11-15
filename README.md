@@ -39,7 +39,7 @@ GwasWA: A GWAS One-stop Analysis Platform from WGS Data to Variant Effect Assess
     - [Quality evaluation, `--step qualityevaluation`](#quality-evaluation---step-qualityevaluation-1)
     - [Download \& index reference genome, `--step downloadref`](#download--index-reference-genome---step-downloadref-1)
     - [Alignment of reference genome, `--step align`](#alignment-of-reference-genome---step-align)
-    - [BAM files Processing, `--step dealbam`](#bam-files-processing---step-dealbam-1)
+    - [BAM files processing, `--step dealbam`](#bam-files-processing---step-dealbam-1)
     - [Variant detection, `--step detect`](#variant-detection---step-detect-1)
     - [Jointgenotype, `--step jointgenotype`](#jointgenotype---step-jointgenotype-1)
     - [VCF quality control, `--step vcfqc`](#vcf-quality-control---step-vcfqc-1)
@@ -418,7 +418,7 @@ Upon execution, the input variants are evaluated, generating an `assessment_Summ
 
 ## WGS data Processing
 
-This guide offers a systematic approach to processing WGS data using E.coli dataset SRR1770413 as an example.
+This guide offers a systematic approach to processing WGS data using the E. coli dataset SRR1770413 as an example.
 
 ### Download sequencing data, `--step downloadsra`
 
@@ -456,7 +456,7 @@ The reference genome and its index will be stored in the `coli/gwaswaOutput/wgs/
 
 The alignment results will be stored in the `coli/gwaswaOutput/wgs/align` directory.
 
-### BAM files Processing, `--step dealbam`
+### BAM files processing, `--step dealbam`
 
 `gwaswa --step dealbam --bamdir coli/gwaswaOutput/wgs/align --refgenome gwaswaOutput/wgs/ref/ref.fa --output coli`
 
