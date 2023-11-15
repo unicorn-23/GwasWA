@@ -536,7 +536,7 @@ The filtered results are stored in the `example/gwaswaOutput/gwas/selectsnp` dir
 
 ## Assessment of variant effect
 
-Using the example of a human non-coding variant `rs11644125`.
+The human non-coding variant `rs11644125` is used as an example.
 
 ### Variant effect assessment, `--step assess`
 
