@@ -82,7 +82,7 @@ Append variable settings to the end of the file `~/.bashrc`. Execute the followi
 
 ## Download sequence data, `--step downloadsra`
 
-For downloading sequence data, utilize the following commands and their respective parameters:
+To download sequence data, utilize the following commands and their respective parameters:
 
 -   `--sra <str>`: Download SRA files based on specified SRA accessions. Separate multiple accessions by spaces.
 -   `--sralist <filename>`: Download SRA files using a list in a `srr_list.txt` file. Each line in the file represents a SRA accession.
@@ -130,7 +130,7 @@ Once the quality control process is completed, the cleaned FASTQ files will be s
 
 ## Quality evaluation, `--step qualityevaluation`
 
-For quality evaluation of FASTQ files, employ the following command with its respective parameters:
+To assess the quality of FASTQ files, utilize the subsequent command alongside its specific parameters:
 
 -   `--fastqdir <path>`: Directory containing the FASTQ files needing quality evaluation.
 -   `--nThrds <int>`: Number of threads allocated for quality evaluation.
@@ -143,7 +143,7 @@ The quality evaluation report, generated using `fastqc` and `multiqc`, will be s
 
 ## Download & index reference genome, `--step downloadref`
 
-For downloading and indexing the reference genome, you can use the following commands with their respective parameters:
+To download and index the reference genome, use the following commands with their respective parameters:
 
 -   `--accession <str>`: Use this to provide a NCBI Reference sequence accession if you don't have a local reference genome file available. This will download the reference genome sequence.
 
@@ -167,7 +167,7 @@ The reference genome sequence is downloaded and stored in the `gwaswaOutput/wgs/
 
 ## Alignment reference genome, `--step align`
 
-To align the reference genome, you can use the following command with its associated parameters:
+To align the reference genome, use the following command with its associated parameters:
 
 -   `--cleanfastqdir <path>`: Directory for storing each FASTQ file after quality control.
 -   `--alignalgorithm <str>`: Choice of alignment algorithm.
@@ -185,7 +185,7 @@ Upon aligning the reference genome with the FASTQ file in the input directory, t
 
 ## BAM files processing, `--step dealbam`
 
-To BAM files processing, use the following command with its associated parameters:
+To process BAM files, use the following command with its associated parameters:
 
 -   `--bamdir <path>`: Directory containing each BAM file.
 -   `--refgenome <filename>`: Local reference genome file.
@@ -200,7 +200,7 @@ Upon processing the BAM files in the input directory, tasks such as sorting, PCR
 
 ## Variant detection, `--step detect`
 
-For variant detection, use the following command along with its associated parameters:
+To detect variants, use the following command along with its associated parameters:
 
 -   `--processedbamdir <path>`: Directory containing each processed BAM file.
 -   `--refgenome <filename>`: Local reference genome file.
@@ -214,7 +214,7 @@ Upon detecting the variants in the BAM files within the input directory, the res
 
 ## Jointgenotype, `--step jointgenotype`
 
-For jointgenotype, use the following command along with its associated parameters:
+To perform jointgenotype, use the following command along with its associated parameters:
 
 -   `--gvcfdir <path>`: Directory containing each gVCF file.
 -   `--refgenome <filename>`: Local reference genome file.
@@ -233,7 +233,7 @@ The joint genotyping process involves several steps:
 
 ## VCF quality control, `--step vcfqc`
 
-For conducting VCF quality control, use the following command along with its associated parameters:
+To conduct VCF quality control, use the following command along with its associated parameters:
 
 -   `--vcffile <filename>`: Specifies the VCF file containing variant genotype information.
 -   Hard filtering for SNPs:
@@ -276,7 +276,7 @@ Upon executing this command, the input VCF file will be imputed with genotypes, 
 
 ## Convert VCF to bfiles, `--step transvcf`
 
-For converting VCF to bfiles, utilize the following command with its associated parameters:
+To convert VCF to bfiles, utilize the following command with its associated parameters:
 
 -   `--genotypefile <filename>`: VCF file containing variant genotype information.
 -   `--phenotypefile <filename>`: The phenotype file comprises three columns: sample ID, family ID, and phenotype value (separated by spaces).
@@ -289,7 +289,7 @@ This command executes the conversion process, generating bfiles stored in the `g
 
 ## GWAS quality control, `--step gwasqc`
 
-For GWAS quality control, use the following command with its associated parameters:
+To perform GWAS quality control, use the following command with its associated parameters:
 
 -   `--bfiledir <path>`: Directory containing the bfiles.
 -   `--atgc`: Retains only ATGC alleles.
@@ -310,11 +310,11 @@ For GWAS quality control, use the following command with its associated paramete
 gwaswa --step gwasqc --bfiledir gwaswaOutput/gwas/transvcf
 ```
 
-Upon executing this command, the bfiles in the input directory will undergo quality control, resulting in the creation of the bfiles after quality control and intermediate quality control files, all stored in the `gwaswaOutput/gwas/qc` directory.
+After running this command, the bfiles within the input directory will go through quality control process and all the quality-controlled bfiles and intermediate files are stored in the `gwaswaOutput/gwas/qc` directory.
 
 ## Population structure analysis, `--step pca`
 
-For conducting population structure analysis, use the following command with its associated parameters:
+To conduct population structure analysis, use the following command with its associated parameters:
 
 -   `--cleanbfiledir <path>`: Directory containing the bfiles.
 -   `--pcanum <int>`: The default value is 6. The number of principal components for analysis.
@@ -402,7 +402,7 @@ Executing this command generates a `snps.txt` file that filters out significantl
 
 ## Variant effect assessment, `--step assess`
 
-For variant impact assessment, utilize the following parameters:
+To conduct variant impact assessment, utilize the following parameters:
 
 `--snpfile <filename>`: Input a VCF file containing variants. Each line in the file represents a variant, specifying the chromosome number, position, variant name, reference allele, and alternative allele. For instance, `16 57025062 rs11644125 C T`.
 
