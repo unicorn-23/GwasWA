@@ -396,7 +396,7 @@ To select significant variants, use the following command with its associated pa
 gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-7
 ```
 
-Executing this command generates a `snps.txt` file that filters out significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
+Executing this command generates a `snps.txt` file that stores the selected significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
 
 # Assessment of Variant Functional Effect
 
