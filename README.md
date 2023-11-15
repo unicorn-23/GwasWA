@@ -482,7 +482,7 @@ The resulting `genotype_filter.vcf` and its index file are stored in the `coli/g
 
 ## GWAS analysis
 
-This section covers GWAS data processing and association analysis using Jiang K et al.‘s experiment’[^1]  as an example. The parameters are configured according to the study of Marees A T et al[^2].
+This section covers GWAS data processing and association analysis using data from [^1]. The parameters are configured according to [^2].
 
 ### Convert VCF to bfiles, `--step transvcf`
 
