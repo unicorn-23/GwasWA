@@ -324,7 +324,7 @@ To conduct population structure analysis, use the following command with its ass
 gwaswa --step pca --groupnum 3 --cleanbfiledir gwaswaOutput/gwas/gwasqc
 ```
 
-Upon execution, the input bfiles undergo population structure analysis and PCA, resulting in the generation of `pca.eigenval` and `pca.eigenvec` files containing PCA eigenvalues and eigenvectors. Additionally, it produces diagrams illustrating the principal component analysis (`pca.png`) and population structure (`admixture.png`), all stored in the `gwaswaOutput/gwas/pca` directory.
+Upon execution, the input bfiles undergo population structure analysis and PCA, resulting in the generation of `pca.eigenval` and `pca.eigenvec` files containing PCA eigenvalues and eigenvectors. Additionally, it produces diagrams illustrating the principal component analysis (`pca.png`) and population structure (`admixture.png`). All these files are stored in the `gwaswaOutput/gwas/pca` directory.
 
 Principal component analysis chart.
 
