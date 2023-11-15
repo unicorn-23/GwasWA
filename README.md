@@ -396,13 +396,13 @@ To select significant variants, use the following command with its associated pa
 gwaswa --step selectsnp --assocfile gwaswaOutput/gwas/association/lm/result.assoc.txt --pvaluelimit 1e-7
 ```
 
-Executing this command generates a `snps.txt` file that stores the selected significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
+Executing this command generates a `snps.txt` file that contains significantly associated SNPs. These files are stored in the `gwaswaOutput/gwas/selectsnp` directory.
 
 # Assessment of Variant Functional Effect
 
 ## Variant effect assessment, `--step assess`
 
-To conduct variant impact assessment, utilize the following parameters:
+To assess the functional effects of variants, utilize the following parameters:
 
 `--snpfile <filename>`: Input a VCF file containing variants. Each line in the file represents a variant, specifying the chromosome number, position, variant name, reference allele, and alternative allele. For instance, `16 57025062 rs11644125 C T`.
 
