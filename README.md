@@ -542,7 +542,7 @@ The human non-coding variant `rs11644125` is used as an example.
 
 `gwaswa --step assess --species homo_sapiens --snpfile gwaswa/example/rs11644125.vcf --output assess`
 
-Evaluated variant impact results are stored in the `assess/gwaswaOutput/gwas/assessment` directory.
+Assessment of variant functional effects is stored in the `assess/gwaswaOutput/gwas/assessment` directory.
 
 
 
