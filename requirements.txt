@@ -16,7 +16,7 @@ blinker @ file:///home/conda/feedstock_root/build_artifacts/blinker_168134977816
 brotlipy @ file:///Users/runner/miniforge3/conda-bld/brotlipy_1666764741656/work
 cached-property @ file:///home/conda/feedstock_root/build_artifacts/cached_property_1615209429212/work
 cachetools @ file:///home/conda/feedstock_root/build_artifacts/cachetools_1674482203741/work
-certifi==2022.12.7
+certifi==2023.7.22
 cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1625835329396/work
 chardet @ file:///Users/runner/miniforge3/conda-bld/chardet_1669990362029/work
 charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1661170624537/work
