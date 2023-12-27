@@ -30,7 +30,7 @@ def getArgs(argv=None):
         help="是否存储中间文件"
     )
     parser.add_argument(
-        "--nThrds", metavar="<str>", type=str,
+        "--nThrds", metavar="<str>", type=str,default=1,
         help='''多线程数量'''
     )
     parser.add_argument(
